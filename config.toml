@@ -1,0 +1,4 @@
+baseURL = 'https://0art0.github.io'
+languageCode = 'en-in'
+title = 'λ-cube'
+theme = "PaperMod"

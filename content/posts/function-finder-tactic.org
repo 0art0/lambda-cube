@@ -1,0 +1,31 @@
+#+title: "Implementing a function-finder tactic in Lean4"
+#+date: 2022-04-25T10:22:24+05:30
+#+draft: true
+
+* Introduction
+
+The [Lean theorem prover](https://github.com/leanprover/lean4) is one of several that supports constructing proofs using *tactics* - commands that allow users to build up proofs step-by-step interactively at a high level of abstraction, usually interspersed with automation (for a demonstration of tactics and an introduction to Lean in general, consult the Natural Number Game). One of the appealing aspects of Lean, especially Lean4, is that there is a robust framework in place for users to write custom tactics within the language, making Lean its own _metaprogramming language_.
+
+In an attempt to familiarise myself with metaprogramming in Lean4, I have written a simple tactic =findProof= to construct functions, given their type. The type =A -> A=, for instance, is inhabited by the identity function, and the type =A -> B -> A= also has a natural candidate that returns the first parameter ignoring the second. One would ideally like to algorithmically construct such functions from their types, and perhaps even apply this algorithm to obtain constructions arising natually in mathematics, such as the adjoint of a linear transformation, the differential map between the tangent spaces of manifolds, or the isomorphism between $A$ and $C(\hat{A})$ in the proof of the Gelfand-Neimark theorem.
+
+The rest of the post contains examples of the =findProof= tactic in action on all the above-mentioned types, followed by a detailed explanation of the algorithm behind the tactic. The code for the tactic is available at _.
+
+* Examples
+
+** Identity
+
+** First projection
+
+** Modus Ponens
+
+** A convoluted example
+
+** Adjoint of a linear transformation
+
+** Gelfand-Neimark bijection
+
+** The differential map between tangent spaces
+
+* The algorithm
+
+---
