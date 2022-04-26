@@ -29,6 +29,7 @@ A function that projects onto the first input is the most natural candidate for 
 def proj₁ : {A B : Type} → A → B → A :=
 fun {A B} a a_1 => a
 #+end_src
+
 ** Modus Ponens
 The rule of inference in propositional logic - modus ponens (knowing =P -> Q= as well as =P=, one can deduce =Q=) - can also be expressed in terms of functions and types by the Curry-Howard correspondence between propositions and types. The types =P= and =Q= are of type =Type= rather than =Prop= as there are issues with displaying terms of types in the universe =Prop=.
 
@@ -36,6 +37,7 @@ The rule of inference in propositional logic - modus ponens (knowing =P -> Q= as
 def modusPonens : {P Q : Type} → (P → Q) → P → Q :=
 fun {P Q} a a_1 => a a_1
 #+end_src
+
 ** A convoluted example
 This is an example demonstrating that the tactic is capable of handling reasonably large types.
 
@@ -53,6 +55,7 @@ The expression for the adjoint of a linear transformation between vector spaces 
 def adjoint : {V W F : Type} → (V → W) → (W → F) → V → F :=
 fun {V W F} a a_1 a_2 => a_1 (a a_2)
 #+end_src
+
 ** Gelfand-Naimark bijection
 Another example is the Gelfand-Naimark theorem in functional analysis asserting a bijection between a $C^{*}$-algebra $A$ and $C(\hat{A})$, the ring of continuous complex-valued functions on the set of $C^{*}$-homomorphisms between $A$ and $\mathbb{C}$ (with a suitable topology).
 
@@ -61,7 +64,7 @@ def gelfand_naimark : {A ℂ : Type} → A → (A → ℂ) → ℂ :=
 fun {A ℂ} a a_1 => a_1 a
 #+end_src
 
-** The differential map between tangent spaces
+** TODO The differential map between tangent spaces
 If $f:M \to N$ is a map between manifolds, one can define a map $df_{p}$ taking $T_{p}(M)$, the tangent space at the point $p$ of $M$, to $T_{f(p)}(N)$. Here, tangent vectors are regarded as derivations.
 
 Unlike the previous examples, this one requires some special care since there is potential for infinite looping during the proof search (explained in the next section).
@@ -69,6 +72,22 @@ Unlike the previous examples, this one requires some special care since there is
 #+begin_src lean
 
 #+end_src
+
 * The algorithm
+
+The only way to construct a term of the function type =A -> B= in type theory is to first consider an arbitrary element =a : A= of type =A=, and then produce an element of type =B= in the context of the above element. Therefore, to construct a term of an arbitrary function type =A_1 -> (A_2 -> ... (A_n -> B))=, terms =a_1 : A_1, a_2:A_2, ..., a_n:A_n= must first be introduced into the context.
+
+To now construct a term of type =B= from just the available terms, a good strategy is to scan the context for functions that eventually return =B=, i.e., terms of type =C_1 -> (C_2 -> ... (C_m -> B))=, where =m= is possibly zero. The =B= at the end must be "unlocked" to use such a term; in other words, terms of all types =C_1, C_2, ..., C_m= must first be produced to use such a function to construct a term of type =B=. The problem of generating terms of types =C_1, C_2, ..., C_m= in the given context is similar to the original one, making a recursive strategy viable.
+
+The tactic succeeds if all terms of types =C_1, C_2, ..., C_m= can be constructed, and otherwise it moves to the next term in the context that eventually returns =B=. If the type =B= cannot be constructed from any of the relevant terms in the context, the tactic fails.
+
+* An illustration of the algorithm
+
+Consider the problem of finding an expression for the adjoint of a linear transformation. The corresponding type to be inhabited is =(V -> W) -> ((W -> F) -> (V -> F))=, where =V, W, F= are types meant to represent two vector spaces and the underlying field respectively.
+
+Following the algorithm, we first introduce all the relevant variables in the context, so that it becomes =V F W : Type, f : V -> W, w* : W -> F, v : V=, with the goal now being to construct a term of type =F=. The term =w* : W -> F= in the context eventually returns =F=, but only when given a term of type =W=. Recursively calling the algorithm changes the goal to =W=, and =f : V -> W= is a term that returns =W= when given a term of type =V=. However, a term =v : V= is present in the context.
+
+Chaining these together gives =w*(f v)=, the expression for the adjoint.
+
 
 ---
