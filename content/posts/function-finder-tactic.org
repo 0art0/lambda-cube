@@ -4,15 +4,15 @@
 
 * Introduction
 
-The [[https://github.com/leanprover/lean4][Lean theorem prover]] is one of several that supports constructing proofs using *tactics* - commands that allow users to build up proofs step-by-step interactively at a high level of abstraction, usually interspersed with automation (for a demonstration of tactics and an introduction to Lean in general, consult the Natural Number Game). One of the appealing aspects of Lean, especially Lean4, is that there is a robust framework in place for users to write custom tactics within the language, making Lean its own _metaprogramming language_.
+The [[https://github.com/leanprover/lean4][Lean theorem prover]] is one of several that supports constructing proofs using *tactics* - commands that allow users to build up proofs step-by-step interactively at a high level of abstraction, usually interspersed with automation (for a demonstration of tactics and an introduction to Lean in general, consult the [[https://www.ma.imperial.ac.uk/~buzzard/xena/natural_number_game/][Natural Number Game]]). One of the appealing aspects of Lean, especially Lean4, is that there is a robust framework in place for users to write custom tactics within the language, making Lean its own _metaprogramming language_.
 
-In an attempt to familiarise myself with metaprogramming in Lean4, I have written a simple tactic =findProof= to construct functions, given their type. The type =A -> A=, for instance, is inhabited by the identity function, and the type =A -> B -> A= also has a natural candidate that returns the first parameter ignoring the second. One would ideally like to algorithmically construct such functions from their types, and perhaps even apply this algorithm to obtain constructions arising natually in mathematics, such as the adjoint of a linear transformation, the differential map between the tangent spaces of manifolds, or the isomorphism between $A$ and $C(\hat{A})$ in the proof of the Gelfand-Naimark theorem.
+In an attempt to familiarise myself with metaprogramming in Lean4, I have written a simple tactic =findProof= to construct functions, given their type. The type =A -> A=, for instance, is inhabited by the identity function, and the type =A -> B -> A= also has a natural candidate that returns the first parameter ignoring the second. One would ideally like to algorithmically construct such functions from their types, and perhaps even apply this algorithm to obtain constructions arising natually in mathematics such as the adjoint of a linear transformation, the pushforward map between the tangent spaces of manifolds, or the isomorphism in the Gelfand-Naimark theorem of functional analysis.
 
-The rest of the post contains examples of the =findProof= tactic in action on all the above-mentioned types, followed by a detailed explanation of the algorithm behind the tactic. The code for the tactic is available at _.
+The rest of the post contains examples of the =findProof= tactic in action on all the above-mentioned types, followed by a detailed explanation of the algorithm behind the tactic. The code for the tactic is available at [[https://gist.github.com/0art0/91b763b39c57a015b94b739d02bcc671][this link]].
 
 * Examples
 
-These are a few functions that were created using the =findProof= tactic. The name and type of the function are specified by the user, and the actual function body is produced by the tactic.
+These are a few functions that were created using the =findProof= tactic. The name and type of the function are specified by the user, and the actual function body is produced by the tactic. The functions are written according to the usual parenthesis-free style of functional programming.
 
 ** Identity
 The identity function, one of the simplest examples of a function that can be produced from the type information alone.
@@ -30,8 +30,8 @@ def proj₁ : {A B : Type} → A → B → A :=
 fun {A B} a a_1 => a
 #+end_src
 
-** Modus Ponens
-The rule of inference in propositional logic - modus ponens (knowing =P -> Q= as well as =P=, one can deduce =Q=) - can also be expressed in terms of functions and types by the Curry-Howard correspondence between propositions and types. The types =P= and =Q= are of type =Type= rather than =Prop= as there are issues with displaying terms of types in the universe =Prop=.
+** Modus ponens
+The rule of inference in propositional logic - modus ponens (if =P -> Q= as well as =P= are the premises, the conclusion is =Q=) - can also be expressed in terms of functions and types by the Curry-Howard correspondence between propositions and types. The types =P= and =Q= are of type =Type= rather than =Prop= as there are issues with displaying terms of types in the universe =Prop=.
 
 #+begin_src lean
 def modusPonens : {P Q : Type} → (P → Q) → P → Q :=
@@ -51,12 +51,14 @@ Given a linear transformation $T: V \to W$, one can construct its adjoint $T^{*}
 
 The expression for the adjoint of a linear transformation between vector spaces has a particularly nice form that can be derived in a similar manner to the above examples purely based on the type information.
 
+If the types =V F W : Type= below are replaced by =P Q F : Prop=, the type changes to the statement of contraposition of logical implication.
+
 #+begin_src lean
 def adjoint : {V W F : Type} → (V → W) → (W → F) → V → F :=
 fun {V W F} a a_1 a_2 => a_1 (a a_2)
 #+end_src
 
-** Gelfand-Naimark bijection
+** Gelfand-Naimark isomorphism
 Another example is the Gelfand-Naimark theorem in functional analysis asserting a bijection between a $C^{*}$-algebra $A$ and $C(\hat{A})$, the ring of continuous complex-valued functions on the set of $C^{*}$-homomorphisms between $A$ and $\mathbb{C}$ (with a suitable topology).
 
 #+begin_src lean
