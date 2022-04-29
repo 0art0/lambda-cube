@@ -77,7 +77,7 @@ Unlike the previous examples, this one requires some special care since there is
 
 * The algorithm
 
-The only way to construct a term of the function type =A -> B= in type theory is to first consider an arbitrary element =a : A= of type =A=, and then produce an element of type =B= in the context of the above element. Therefore, to construct a term of an arbitrary function type =A_1 -> (A_2 -> ... (A_n -> B))=, terms =a_1 : A_1, a_2:A_2, ..., a_n:A_n= must first be introduced into the context.
+A term of the function type =A -> B= in type theory is usually produced either by recursion (more technically, by applying the induction principle where the source is an inductive type), or by considering an arbitrary element =a : A= of type =A= and then producing an element of type =B= in its context. This algorithm considers only the latter method of constructing functions, since it is applicable even when nothing about the source and target types is known. Therefore, to construct a term of an arbitrary function type =A_1 -> (A_2 -> ... (A_n -> B))=, terms =a_1 : A_1, a_2:A_2, ..., a_n:A_n= must first be introduced into the context.
 
 To now construct a term of type =B= from just the available terms, a good strategy is to scan the context for functions that eventually return =B=, i.e., terms of type =C_1 -> (C_2 -> ... (C_m -> B))=, where =m= is possibly zero. The =B= at the end must be "unlocked" to use such a term; in other words, terms of all types =C_1, C_2, ..., C_m= must first be produced to use such a function to construct a term of type =B=. The problem of generating terms of types =C_1, C_2, ..., C_m= in the given context is similar to the original one, making a recursive strategy viable.
 
