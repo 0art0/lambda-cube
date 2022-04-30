@@ -1,0 +1,7 @@
+#+TITLE: {{ replace .Name "-" " " | title }}
+#+AUTHOR: Anand
+#+DATE: {{ .Date }}
+#+DRAFT: true
+
+
+
