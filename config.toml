@@ -1,4 +1,5 @@
-baseURL = 'https://0art0.github.io'
+baseURL = 'https://0art0.github.io/lambda-cube'
 languageCode = 'en-in'
 title = 'λ-cube'
 theme = "PaperMod"
+publishDir = "docs"
