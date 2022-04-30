@@ -1,6 +1,6 @@
 #+title: "A category-theoretic description of a group ring"
 #+date: 2022-04-26T23:11:03+05:30
-#+draft: true
+#+draft: false 
 
 * Introduction
 

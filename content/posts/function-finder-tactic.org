@@ -1,6 +1,6 @@
 #+title: Implementing a function-finder tactic in Lean4
 #+date: 2022-04-25T10:22:24+05:30
-#+draft: true
+#+draft: false 
 
 * Introduction
 

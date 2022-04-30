@@ -6,7 +6,26 @@
     <description>Recent content in Posts on λ-cube</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-in</language>
-    <lastBuildDate>Sun, 24 Apr 2022 19:17:30 +0530</lastBuildDate><atom:link href="https://0art0.github.io/lambda-cube/posts/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Tue, 26 Apr 2022 23:11:03 +0530</lastBuildDate><atom:link href="https://0art0.github.io/lambda-cube/posts/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>&#34;A category-theoretic description of a group ring&#34;</title>
+      <link>https://0art0.github.io/lambda-cube/posts/a-category-theoretic-definition-of-a-group-ring/</link>
+      <pubDate>Tue, 26 Apr 2022 23:11:03 +0530</pubDate>
+      
+      <guid>https://0art0.github.io/lambda-cube/posts/a-category-theoretic-definition-of-a-group-ring/</guid>
+      <description>Introduction   Mathematical objects can often be described in several ways, each description usually offering a different perspective and serving a different purpose.
+ For example, group rings - the subject of this post - can be described in two very different ways. Given a group G and a ring R, one way to think of the group ring R[G] is as the space of functions from G to R having finite support, with addition being pointwise and multiplication given by convolution.</description>
+    </item>
+    
+    <item>
+      <title>Implementing a function-finder tactic in Lean4</title>
+      <link>https://0art0.github.io/lambda-cube/posts/function-finder-tactic/</link>
+      <pubDate>Mon, 25 Apr 2022 10:22:24 +0530</pubDate>
+      
+      <guid>https://0art0.github.io/lambda-cube/posts/function-finder-tactic/</guid>
+      <description>Introduction   The Lean theorem prover is one of several that supports constructing proofs using tactics - commands that allow users to build up proofs step-by-step interactively at a high level of abstraction, usually interspersed with automation (for a demonstration of tactics and an introduction to Lean in general, consult the Natural Number Game). One of the appealing aspects of Lean, especially Lean4, is that there is a robust framework in place for users to write custom tactics within the language, making Lean its own metaprogramming language.</description>
+    </item>
+    
     <item>
       <title>Test Post</title>
       <link>https://0art0.github.io/lambda-cube/posts/test-post/</link>

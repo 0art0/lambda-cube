@@ -2,13 +2,19 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
-    <loc>https://0art0.github.io/lambda-cube/posts/</loc>
-    <lastmod>2022-04-24T19:17:30+05:30</lastmod>
+    <loc>https://0art0.github.io/lambda-cube/posts/a-category-theoretic-definition-of-a-group-ring/</loc>
+    <lastmod>2022-04-26T23:11:03+05:30</lastmod>
   </url><url>
-    <loc>https://0art0.github.io/lambda-cube/posts/test-post/</loc>
-    <lastmod>2022-04-24T19:17:30+05:30</lastmod>
+    <loc>https://0art0.github.io/lambda-cube/posts/</loc>
+    <lastmod>2022-04-26T23:11:03+05:30</lastmod>
   </url><url>
     <loc>https://0art0.github.io/lambda-cube/</loc>
+    <lastmod>2022-04-26T23:11:03+05:30</lastmod>
+  </url><url>
+    <loc>https://0art0.github.io/lambda-cube/posts/function-finder-tactic/</loc>
+    <lastmod>2022-04-25T10:22:24+05:30</lastmod>
+  </url><url>
+    <loc>https://0art0.github.io/lambda-cube/posts/test-post/</loc>
     <lastmod>2022-04-24T19:17:30+05:30</lastmod>
   </url><url>
     <loc>https://0art0.github.io/lambda-cube/categories/</loc>

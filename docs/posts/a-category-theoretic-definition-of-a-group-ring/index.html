@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="en" dir="auto">
+
+<head><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="index, follow">
+<title>&#34;A category-theoretic description of a group ring&#34; | λ-cube</title>
+<meta name="keywords" content="">
+<meta name="description" content="Introduction   Mathematical objects can often be described in several ways, each description usually offering a different perspective and serving a different purpose.
+ For example, group rings - the subject of this post - can be described in two very different ways. Given a group G and a ring R, one way to think of the group ring R[G] is as the space of functions from G to R having finite support, with addition being pointwise and multiplication given by convolution.">
+<meta name="author" content="">
+<link rel="canonical" href="https://0art0.github.io/lambda-cube/posts/a-category-theoretic-definition-of-a-group-ring/">
+<link crossorigin="anonymous" href="/lambda-cube/assets/css/stylesheet.min.b4e19c453811e60acfec1f00c15ac2be1c53f6ab90187e684358ce7faaf48bab.css" integrity="sha256-tOGcRTgR5grP7B8AwVrCvhxT9quQGH5oQ1jOf6r0i6s=" rel="preload stylesheet" as="style">
+<script defer crossorigin="anonymous" src="/lambda-cube/assets/js/highlight.min.4dcb3c4f38462f66c6b6137227726f5543cb934cca9788f041c087e374491df2.js" integrity="sha256-Tcs8TzhGL2bGthNyJ3JvVUPLk0zKl4jwQcCH43RJHfI="
+    onload="hljs.initHighlightingOnLoad();"></script>
+<link rel="icon" href="https://0art0.github.io/lambda-cube/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="https://0art0.github.io/lambda-cube/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="https://0art0.github.io/lambda-cube/favicon-32x32.png">
+<link rel="apple-touch-icon" href="https://0art0.github.io/lambda-cube/apple-touch-icon.png">
+<link rel="mask-icon" href="https://0art0.github.io/lambda-cube/safari-pinned-tab.svg">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<noscript>
+    <style>
+        #theme-toggle,
+        .top-link {
+            display: none;
+        }
+
+    </style>
+    <style>
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --theme: rgb(29, 30, 32);
+                --entry: rgb(46, 46, 51);
+                --primary: rgb(218, 218, 219);
+                --secondary: rgb(155, 156, 157);
+                --tertiary: rgb(65, 66, 68);
+                --content: rgb(196, 196, 197);
+                --hljs-bg: rgb(46, 46, 51);
+                --code-bg: rgb(55, 56, 62);
+                --border: rgb(51, 51, 51);
+            }
+
+            .list {
+                background: var(--theme);
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-track {
+                background: 0 0;
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-thumb {
+                border-color: var(--theme);
+            }
+        }
+
+    </style>
+</noscript><meta property="og:title" content="&#34;A category-theoretic description of a group ring&#34;" />
+<meta property="og:description" content="Introduction   Mathematical objects can often be described in several ways, each description usually offering a different perspective and serving a different purpose.
+ For example, group rings - the subject of this post - can be described in two very different ways. Given a group G and a ring R, one way to think of the group ring R[G] is as the space of functions from G to R having finite support, with addition being pointwise and multiplication given by convolution." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://0art0.github.io/lambda-cube/posts/a-category-theoretic-definition-of-a-group-ring/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2022-04-26T23:11:03&#43;05:30" />
+<meta property="article:modified_time" content="2022-04-26T23:11:03&#43;05:30" />
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="&#34;A category-theoretic description of a group ring&#34;"/>
+<meta name="twitter:description" content="Introduction   Mathematical objects can often be described in several ways, each description usually offering a different perspective and serving a different purpose.
+ For example, group rings - the subject of this post - can be described in two very different ways. Given a group G and a ring R, one way to think of the group ring R[G] is as the space of functions from G to R having finite support, with addition being pointwise and multiplication given by convolution."/>
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [, 
+    {
+      "@type": "ListItem",
+      "position":  2 ,
+      "name": "Posts",
+      "item": "https://0art0.github.io/lambda-cube/posts/"
+    }, 
+    {
+      "@type": "ListItem",
+      "position":  3 ,
+      "name": "\"A category-theoretic description of a group ring\"",
+      "item": "https://0art0.github.io/lambda-cube/posts/a-category-theoretic-definition-of-a-group-ring/"
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "\"A category-theoretic description of a group ring\"",
+  "name": "\u0022A category-theoretic description of a group ring\u0022",
+  "description": "Introduction   Mathematical objects can often be described in several ways, each description usually offering a different perspective and serving a different purpose.\n For example, group rings - the subject of this post - can be described in two very different ways. Given a group G and a ring R, one way to think of the group ring R[G] is as the space of functions from G to R having finite support, with addition being pointwise and multiplication given by convolution.",
+  "keywords": [
+    
+  ],
+  "articleBody": " Introduction   Mathematical objects can often be described in several ways, each description usually offering a different perspective and serving a different purpose.\n For example, group rings - the subject of this post - can be described in two very different ways. Given a group G and a ring R, one way to think of the group ring R[G] is as the space of functions from G to R having finite support, with addition being pointwise and multiplication given by convolution. Another description of elements of R[G] is as finite formal linear combinations of group elements with coefficients in the ring R.\n This kind of flexibility in the choice of a definition can however be a constraint in formalisation, as one might end up proving the same result multiple times - each time with a different representation of the underlying object. It is therefore desirable to have a \"meta-theorem\" that states that theorems proved for one representation are valid for a different representation of the object (theorems can be \"transported\" across isomorphisms this way in the framework of Homotopy Type Theory, from what I understand), or even better, to have an abstract and conceptual description of the underlying object that does not depend on how it is represented. In the second case, one can prove all results using the abstract description of the object and then simply show that a particular concrete representation satisfies the abstract property.\n The rest of this post is about one such abstract description of group rings in the language of category theory.\n  Some Category theory   This post assumes some familiarity with categories, functors, natural transformations and other fundamental notions in category theory. Some of the other concepts that will be used are described below.\nGroup actions   A category comes equipped with an identity morphism for each object, together with a composition operation on compatible morphisms. The situation is even better in the case of a category with a single object, where any pair of morphisms can be composed. This leads to the natural definition of a group as a single-object category where every morphism is an isomorphism (i.e., every morphism is invertible). The elements of the group are the morphisms of the single-object category, and the group operation is composition of morphisms.\n Thinking of a group as an entire category may be strange, but it has its advantages. For instance, a group action on a set is just a functor from the single-object category associated with the group to the category of sets. Similarly, a group representation is a functor from the category to the category of vector spaces over a chosen field.\n  Functor categories   Functors are maps between categories, and natural transformations are maps between functors with the same source and target. In some sense, a natural transformation is a \"morphism\" between functors. This intuition is made precise through the definition of the functor category.\n If C and D are categories, the functor category D^C has objects as functors from C to D and morphisms as natural transformations. Continuing the earlier examples, the category of all representations of a group G over is simply the functor category where the source category is the group G (thought of as a single-object category) and the target is the category of vector spaces over the complex numbers.\n  Initial objects   An initial object of a category is one that has a unique morphism to every object of the category. In the category of groups, for example, the initial object is the trivial group.\n It follows from this description that any two initial objects of a category must be unique up to a unique isomorphism.\n    A category-theoretic description of a group ring   Given a ring R and a group G, the objective is to give an abstract description of the group ring R[G].\n The category of R-algebras, where the objects are R-algebras and the morphisms are R-algebra homomorphisms, will serve as the starting point. To bring the group G into the picture, consider G-actions on R-algebras.\n As mentioned earlier, an action of the group G on an R-algebra can be considered as a functor from the group (treated as a single-object category) to the category of R-algebras. Studying all such actions on R-algebras at once amounts to constructing the functor category with the source of the functors being the group and the target being the category of R-algebras.\n The claim now is that the group ring R[G] is nothing but the initial object in this functor category.\n To see this, we must first show that the group ring R[G] actually lies in this category. This however follows from the natural multiplicative structure of R[G]. Next, consider any element of the above category, which is essentially an R-algebra together with a group action.\n To show that there is a unique map from R[G] to this R-algebra, we first deduce the properties that such a homomorphism must satisfy and then observe that it forces there to be unique map. An arbitrary word $\\sum_{i} r_{i}g_{i}$ of R[G] is mapped by a homomorphism $\\phi$ to $\\phi(\\sum_{i} r_{i}g_{i}) = \\sum_{i} \\phi(r_{i}g_{i})$. However, the map $\\phi$ is $G$-equivariant as it is a morphism in the functor category, and hence a natural transformation between the corresponding functors. Therefore, the expression $\\sum_{i} \\phi(r_{i}g_{i})$ is equal to $\\sum_{i} \\phi(r_{i}) g_{i}$. Since all the $r_{i}$ are scalars coming from the ring R, they must be fixed by the $R$-algebra homomorphism $\\phi$. Therefore, any homomorphism from R[G] to an object is essentially uniquely determined, and is a valid homomorphism.\n  TODO The thought process   The process of ariving at the above result was far messier than presented. This section will present some of the ideas that eventually led to the above formulation (it has been a few days since I first came up with this, so some details will be missing).\n  ",
+  "wordCount" : "969",
+  "inLanguage": "en",
+  "datePublished": "2022-04-26T23:11:03+05:30",
+  "dateModified": "2022-04-26T23:11:03+05:30",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://0art0.github.io/lambda-cube/posts/a-category-theoretic-definition-of-a-group-ring/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "λ-cube",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://0art0.github.io/lambda-cube/favicon.ico"
+    }
+  }
+}
+</script>
+</head>
+
+<body class="" id="top">
+<script>
+    if (localStorage.getItem("pref-theme") === "dark") {
+        document.body.classList.add('dark');
+    } else if (localStorage.getItem("pref-theme") === "light") {
+        document.body.classList.remove('dark')
+    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.body.classList.add('dark');
+    }
+
+</script>
+
+<header class="header">
+    <nav class="nav">
+        <div class="logo">
+            <a href="https://0art0.github.io/lambda-cube" accesskey="h" title="λ-cube (Alt + H)">λ-cube</a>
+            <span class="logo-switches">
+                <button id="theme-toggle" accesskey="t" title="(Alt + T)">
+                    <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+            </span>
+        </div>
+        <ul id="menu">
+        </ul>
+    </nav>
+</header>
+<main class="main">
+
+<article class="post-single">
+  <header class="post-header">
+    
+    <h1 class="post-title">
+      &#34;A category-theoretic description of a group ring&#34;
+    </h1>
+    <div class="post-meta"><span title='2022-04-26 23:11:03 +0530 IST'>April 26, 2022</span>
+
+</div>
+  </header> 
+  <div class="post-content">
+<div id="outline-container-headline-1" class="outline-2">
+<h2 id="headline-1">
+Introduction
+</h2>
+<div id="outline-text-headline-1" class="outline-text-2">
+<p>
+Mathematical objects can often be described in several ways, each description usually offering a different perspective and serving a different purpose.</p>
+<p>
+For example, <a href="https://en.wikipedia.org/wiki/Group_ring">group rings</a> - the subject of this post - can be described in two very different ways. Given a group <code class="verbatim">G</code> and a ring <code class="verbatim">R</code>, one way to think of the group ring <code class="verbatim">R[G]</code> is as the space of functions from <code class="verbatim">G</code> to <code class="verbatim">R</code> having finite support, with addition being pointwise and multiplication given by convolution. Another description of elements of <code class="verbatim">R[G]</code> is as finite formal linear combinations of group elements with coefficients in the ring <code class="verbatim">R</code>.</p>
+<p>
+This kind of flexibility in the choice of a definition can however be a constraint in formalisation, as one might end up proving the same result multiple times - each time with a different representation of the underlying object. It is therefore desirable to have a &#34;meta-theorem&#34; that states that theorems proved for one representation are valid for a different representation of the object (theorems can be &#34;transported&#34; across isomorphisms this way in the framework of Homotopy Type Theory, from what I understand), or even better, to have an abstract and conceptual description of the underlying object that does not depend on how it is represented. In the second case, one can prove all results using the abstract description of the object and then simply show that a particular concrete representation satisfies the abstract property.</p>
+<p>
+The rest of this post is about one such abstract description of group rings in the language of category theory.</p>
+</div>
+</div>
+<div id="outline-container-headline-2" class="outline-2">
+<h2 id="headline-2">
+Some Category theory
+</h2>
+<div id="outline-text-headline-2" class="outline-text-2">
+<p>
+This post assumes some familiarity with <a href="https://en.wikipedia.org/wiki/Category_(mathematics)">categories</a>, <a href="https://en.wikipedia.org/wiki/Functor">functors</a>, <a href="https://en.wikipedia.org/wiki/Natural_transformation">natural transformations</a> and other fundamental notions in category theory. Some of the other concepts that will be used are described below.</p>
+<div id="outline-container-headline-3" class="outline-3">
+<h3 id="headline-3">
+Group actions
+</h3>
+<div id="outline-text-headline-3" class="outline-text-3">
+<p>
+A category comes equipped with an identity morphism for each object, together with a composition operation on compatible morphisms. The situation is even better in the case of a category with a single object, where any pair of morphisms can be composed. This leads to the natural definition of a group as a single-object category where every morphism is an isomorphism (i.e., every morphism is invertible). The elements of the group are the morphisms of the single-object category, and the group operation is composition of morphisms.</p>
+<p>
+Thinking of a group as an entire category may be strange, but it has its advantages. For instance, a group action on a set is just a functor from the single-object category associated with the group to the category of sets. Similarly, a group representation is a functor from the category to the category of vector spaces over a chosen field.</p>
+</div>
+</div>
+<div id="outline-container-headline-4" class="outline-3">
+<h3 id="headline-4">
+Functor categories
+</h3>
+<div id="outline-text-headline-4" class="outline-text-3">
+<p>
+Functors are maps between categories, and natural transformations are maps between functors with the same source and target. In some sense, a natural transformation is a &#34;morphism&#34; between functors. This intuition is made precise through the definition of the <a href="https://en.wikipedia.org/wiki/Functor_category">functor category</a>.</p>
+<p>
+If <code class="verbatim">C</code> and <code class="verbatim">D</code> are categories, the functor category <code class="verbatim">D^C</code> has objects as functors from <code class="verbatim">C</code> to <code class="verbatim">D</code> and morphisms as natural transformations. Continuing the earlier examples, the category of all representations of a group <code class="verbatim">G</code> over is simply the functor category where the source category is the group <code class="verbatim">G</code> (thought of as a single-object category) and the target is the category of vector spaces over the complex numbers.</p>
+</div>
+</div>
+<div id="outline-container-headline-5" class="outline-3">
+<h3 id="headline-5">
+Initial objects
+</h3>
+<div id="outline-text-headline-5" class="outline-text-3">
+<p>
+An <a href="https://en.wikipedia.org/wiki/Initial_and_terminal_objects">initial object</a> of a category is one that has a unique morphism to every object of the category. In the category of groups, for example, the initial object is the trivial group.</p>
+<p>
+It follows from this description that any two initial objects of a category must be unique up to a unique isomorphism.</p>
+</div>
+</div>
+</div>
+</div>
+<div id="outline-container-headline-6" class="outline-2">
+<h2 id="headline-6">
+A category-theoretic description of a group ring
+</h2>
+<div id="outline-text-headline-6" class="outline-text-2">
+<p>
+Given a ring <code class="verbatim">R</code> and a group <code class="verbatim">G</code>, the objective is to give an abstract description of the group ring <code class="verbatim">R[G]</code>.</p>
+<p>
+The category of <code class="verbatim">R</code>-algebras, where the objects are <code class="verbatim">R</code>-algebras and the morphisms are <code class="verbatim">R</code>-algebra homomorphisms, will serve as the starting point. To bring the group <code class="verbatim">G</code> into the picture, consider <code class="verbatim">G</code>-actions on <code class="verbatim">R</code>-algebras.</p>
+<p>
+As mentioned earlier, an action of the group <code class="verbatim">G</code> on an <code class="verbatim">R</code>-algebra can be considered as a functor from the group (treated as a single-object category) to the category of <code class="verbatim">R</code>-algebras. Studying all such actions on <code class="verbatim">R</code>-algebras at once amounts to constructing the functor category with the source of the functors being the group and the target being the category of <code class="verbatim">R</code>-algebras.</p>
+<p>
+The claim now is that the group ring <code class="verbatim">R[G]</code> is nothing but the initial object in this functor category.</p>
+<p>
+To see this, we must first show that the group ring <code class="verbatim">R[G]</code> actually lies in this category. This however follows from the natural multiplicative structure of <code class="verbatim">R[G]</code>. Next, consider any element of the above category, which is essentially an <code class="verbatim">R</code>-algebra together with a group action.</p>
+<p>
+To show that there is a unique map from <code class="verbatim">R[G]</code> to this R-algebra, we first deduce the properties that such a homomorphism must satisfy and then observe that it forces there to be unique map. An arbitrary word $\sum_{i} r_{i}g_{i}$ of <code class="verbatim">R[G]</code> is mapped by a homomorphism $\phi$ to $\phi(\sum_{i} r_{i}g_{i}) = \sum_{i} \phi(r_{i}g_{i})$. However, the map $\phi$ is $G$-equivariant as it is a morphism in the functor category, and hence a natural transformation between the corresponding functors. Therefore, the expression $\sum_{i} \phi(r_{i}g_{i})$ is equal to $\sum_{i} \phi(r_{i}) g_{i}$. Since all the $r_{i}$ are scalars coming from the ring <code class="verbatim">R</code>, they must be fixed by the $R$-algebra homomorphism $\phi$. Therefore, any homomorphism from <code class="verbatim">R[G]</code> to an object is essentially uniquely determined, and is a valid homomorphism.</p>
+</div>
+</div>
+<div id="outline-container-headline-7" class="outline-2">
+<h2 id="headline-7">
+<span class="todo">TODO</span>
+The thought process
+</h2>
+<div id="outline-text-headline-7" class="outline-text-2">
+<p>
+The process of ariving at the above result was far messier than presented. This section will present some of the ideas that eventually led to the above formulation (it has been a few days since I first came up with this, so some details will be missing).</p>
+</div>
+</div>
+
+
+  </div>
+
+  <footer class="post-footer">
+    <ul class="post-tags">
+    </ul>
+  </footer>
+</article>
+    </main>
+    
+<footer class="footer">
+    <span>&copy; 2022 <a href="https://0art0.github.io/lambda-cube">λ-cube</a></span>
+    <span>
+        Powered by
+        <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &
+        <a href="https://git.io/hugopapermod" rel="noopener" target="_blank">PaperMod</a>
+    </span>
+</footer>
+<a href="#top" aria-label="go to top" title="Go to Top (Alt + G)" class="top-link" id="top-link" accesskey="g">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentColor">
+        <path d="M12 6H0l6-6z" />
+    </svg>
+</a>
+
+<script>
+    let menu = document.getElementById('menu')
+    if (menu) {
+        menu.scrollLeft = localStorage.getItem("menu-scroll-position");
+        menu.onscroll = function () {
+            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+        }
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            var id = this.getAttribute("href").substr(1);
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
+                    behavior: "smooth"
+                });
+            } else {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
+            }
+            if (id === "top") {
+                history.replaceState(null, null, " ");
+            } else {
+                history.pushState(null, null, `#${id}`);
+            }
+        });
+    });
+
+</script>
+<script>
+    var mybutton = document.getElementById("top-link");
+    window.onscroll = function () {
+        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
+            mybutton.style.visibility = "visible";
+            mybutton.style.opacity = "1";
+        } else {
+            mybutton.style.visibility = "hidden";
+            mybutton.style.opacity = "0";
+        }
+    };
+
+</script>
+<script>
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+        if (document.body.className.includes("dark")) {
+            document.body.classList.remove('dark');
+            localStorage.setItem("pref-theme", 'light');
+        } else {
+            document.body.classList.add('dark');
+            localStorage.setItem("pref-theme", 'dark');
+        }
+    })
+
+</script>
+</body>
+
+</html>

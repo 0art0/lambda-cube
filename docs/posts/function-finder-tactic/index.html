@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="en" dir="auto">
+
+<head><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="index, follow">
+<title>Implementing a function-finder tactic in Lean4 | λ-cube</title>
+<meta name="keywords" content="">
+<meta name="description" content="Introduction   The Lean theorem prover is one of several that supports constructing proofs using tactics - commands that allow users to build up proofs step-by-step interactively at a high level of abstraction, usually interspersed with automation (for a demonstration of tactics and an introduction to Lean in general, consult the Natural Number Game). One of the appealing aspects of Lean, especially Lean4, is that there is a robust framework in place for users to write custom tactics within the language, making Lean its own metaprogramming language.">
+<meta name="author" content="">
+<link rel="canonical" href="https://0art0.github.io/lambda-cube/posts/function-finder-tactic/">
+<link crossorigin="anonymous" href="/lambda-cube/assets/css/stylesheet.min.b4e19c453811e60acfec1f00c15ac2be1c53f6ab90187e684358ce7faaf48bab.css" integrity="sha256-tOGcRTgR5grP7B8AwVrCvhxT9quQGH5oQ1jOf6r0i6s=" rel="preload stylesheet" as="style">
+<script defer crossorigin="anonymous" src="/lambda-cube/assets/js/highlight.min.4dcb3c4f38462f66c6b6137227726f5543cb934cca9788f041c087e374491df2.js" integrity="sha256-Tcs8TzhGL2bGthNyJ3JvVUPLk0zKl4jwQcCH43RJHfI="
+    onload="hljs.initHighlightingOnLoad();"></script>
+<link rel="icon" href="https://0art0.github.io/lambda-cube/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="https://0art0.github.io/lambda-cube/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="https://0art0.github.io/lambda-cube/favicon-32x32.png">
+<link rel="apple-touch-icon" href="https://0art0.github.io/lambda-cube/apple-touch-icon.png">
+<link rel="mask-icon" href="https://0art0.github.io/lambda-cube/safari-pinned-tab.svg">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<noscript>
+    <style>
+        #theme-toggle,
+        .top-link {
+            display: none;
+        }
+
+    </style>
+    <style>
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --theme: rgb(29, 30, 32);
+                --entry: rgb(46, 46, 51);
+                --primary: rgb(218, 218, 219);
+                --secondary: rgb(155, 156, 157);
+                --tertiary: rgb(65, 66, 68);
+                --content: rgb(196, 196, 197);
+                --hljs-bg: rgb(46, 46, 51);
+                --code-bg: rgb(55, 56, 62);
+                --border: rgb(51, 51, 51);
+            }
+
+            .list {
+                background: var(--theme);
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-track {
+                background: 0 0;
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-thumb {
+                border-color: var(--theme);
+            }
+        }
+
+    </style>
+</noscript><meta property="og:title" content="Implementing a function-finder tactic in Lean4" />
+<meta property="og:description" content="Introduction   The Lean theorem prover is one of several that supports constructing proofs using tactics - commands that allow users to build up proofs step-by-step interactively at a high level of abstraction, usually interspersed with automation (for a demonstration of tactics and an introduction to Lean in general, consult the Natural Number Game). One of the appealing aspects of Lean, especially Lean4, is that there is a robust framework in place for users to write custom tactics within the language, making Lean its own metaprogramming language." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://0art0.github.io/lambda-cube/posts/function-finder-tactic/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2022-04-25T10:22:24&#43;05:30" />
+<meta property="article:modified_time" content="2022-04-25T10:22:24&#43;05:30" />
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Implementing a function-finder tactic in Lean4"/>
+<meta name="twitter:description" content="Introduction   The Lean theorem prover is one of several that supports constructing proofs using tactics - commands that allow users to build up proofs step-by-step interactively at a high level of abstraction, usually interspersed with automation (for a demonstration of tactics and an introduction to Lean in general, consult the Natural Number Game). One of the appealing aspects of Lean, especially Lean4, is that there is a robust framework in place for users to write custom tactics within the language, making Lean its own metaprogramming language."/>
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [, 
+    {
+      "@type": "ListItem",
+      "position":  2 ,
+      "name": "Posts",
+      "item": "https://0art0.github.io/lambda-cube/posts/"
+    }, 
+    {
+      "@type": "ListItem",
+      "position":  3 ,
+      "name": "Implementing a function-finder tactic in Lean4",
+      "item": "https://0art0.github.io/lambda-cube/posts/function-finder-tactic/"
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "Implementing a function-finder tactic in Lean4",
+  "name": "Implementing a function-finder tactic in Lean4",
+  "description": "Introduction   The Lean theorem prover is one of several that supports constructing proofs using tactics - commands that allow users to build up proofs step-by-step interactively at a high level of abstraction, usually interspersed with automation (for a demonstration of tactics and an introduction to Lean in general, consult the Natural Number Game). One of the appealing aspects of Lean, especially Lean4, is that there is a robust framework in place for users to write custom tactics within the language, making Lean its own metaprogramming language.",
+  "keywords": [
+    
+  ],
+  "articleBody": " Introduction   The Lean theorem prover is one of several that supports constructing proofs using tactics - commands that allow users to build up proofs step-by-step interactively at a high level of abstraction, usually interspersed with automation (for a demonstration of tactics and an introduction to Lean in general, consult the Natural Number Game). One of the appealing aspects of Lean, especially Lean4, is that there is a robust framework in place for users to write custom tactics within the language, making Lean its own metaprogramming language.\n In an attempt to familiarise myself with metaprogramming in Lean4, I have written a simple tactic findProof to construct functions, given their type. The type A - A, for instance, is inhabited by the identity function, and the type A - B - A also has a natural candidate that returns the first parameter ignoring the second. One would ideally like to algorithmically construct such functions from their types, and perhaps even apply this algorithm to obtain constructions arising natually in mathematics such as the adjoint of a linear transformation, the pushforward map between the tangent spaces of manifolds, or the isomorphism in the Gelfand-Naimark theorem of functional analysis.\n The rest of the post contains examples of the findProof tactic in action on all the above-mentioned types, followed by a detailed explanation of the algorithm behind the tactic. The code for the tactic is available at this link.\n  Examples   These are a few functions that were created using the findProof tactic. The name and type of the function are specified by the user, and the actual function body is produced by the tactic. The functions are written according to the usual parenthesis-free style of functional programming.\nIdentity  The identity function, one of the simplest examples of a function that can be produced from the type information alone.\ndef ident : {A : Type} → A → A := fun {A} a = a    First projection  A function that projects onto the first input is the most natural candidate for a function of type A - B - A.\ndef proj₁ : {A B : Type} → A → B → A := fun {A B} a a_1 = a    Modus ponens  The rule of inference in propositional logic - modus ponens (if P - Q as well as P are the premises, the conclusion is Q) - can also be expressed in terms of functions and types by the Curry-Howard correspondence between propositions and types. The types P and Q are of type Type rather than Prop as there are issues with displaying terms of types in the universe Prop.\ndef modusPonens : {P Q : Type} → (P → Q) → P → Q := fun {P Q} a a_1 = a a_1    A convoluted example  This is an example demonstrating that the tactic is capable of handling reasonably large types.\ndef convolutedexample : String → Float → (Unit → Int) → (Int → Nat) → (String → Unit) → Nat := fun a a_1 a_2 a_3 a_4 = a_3 (a_2 (a_4 a))    Adjoint of a linear transformation  Given a linear transformation $T: V \\to W$, one can construct its adjoint $T^{*}: W^{*} \\to V^{*}$ between the dual spaces as $T^{*}(w^{*})(v) := w^{*}(T(v))$.\n The expression for the adjoint of a linear transformation between vector spaces has a particularly nice form that can be derived in a similar manner to the above examples purely based on the type information.\n If the types V F W : Type below are replaced by P Q F : Prop, the type changes to the statement of contraposition of logical implication.\ndef adjoint : {V W F : Type} → (V → W) → (W → F) → V → F := fun {V W F} a a_1 a_2 = a_1 (a a_2)    Gelfand-Naimark isomorphism  Another example is the Gelfand-Naimark theorem in functional analysis asserting a bijection between a $C^{*}$-algebra $A$ and $C(\\hat{A})$, the ring of continuous complex-valued functions on the set of $C^{*}$-homomorphisms between $A$ and $\\mathbb{C}$ (with a suitable topology).\ndef gelfand_naimark : {A ℂ : Type} → A → (A → ℂ) → ℂ := fun {A ℂ} a a_1 = a_1 a    TODO The differential map between tangent spaces  If $f:M \\to N$ is a map between manifolds, one can define a map $df_{p}$ taking $T_{p}(M)$, the tangent space at the point $p$ of $M$, to $T_{f(p)}(N)$. Here, tangent vectors are regarded as derivations.\n Unlike the previous examples, this one requires some special care since there is potential for infinite looping during the proof search (explained in the next section).\n      The algorithm   A term of the function type A - B in type theory is usually produced either by recursion (more technically, by applying the induction principle where the source is an inductive type), or by considering an arbitrary element a : A of type A and then producing an element of type B in its context. This algorithm considers only the latter method of constructing functions, since it is applicable even when nothing about the source and target types is known. Therefore, to construct a term of an arbitrary function type A_1 - (A_2 - ... (A_n - B)), terms a_1 : A_1, a_2:A_2, ..., a_n:A_n must first be introduced into the context.\n To now construct a term of type B from just the available terms, a good strategy is to scan the context for functions that eventually return B, i.e., terms of type C_1 - (C_2 - ... (C_m - B)), where m is possibly zero. The B at the end must be \"unlocked\" to use such a term; in other words, terms of all types C_1, C_2, ..., C_m must first be produced to use such a function to construct a term of type B. The problem of generating terms of types C_1, C_2, ..., C_m in the given context is similar to the original one, making a recursive strategy viable.\n The tactic succeeds if all terms of types C_1, C_2, ..., C_m can be constructed, and otherwise it moves to the next term in the context that eventually returns B. If the type B cannot be constructed from any of the relevant terms in the context, the tactic fails.\n  An illustration of the algorithm   Consider the problem of finding an expression for the adjoint of a linear transformation. The corresponding type to be inhabited is (V - W) - ((W - F) - (V - F)), where V, W, F are types meant to represent two vector spaces and the underlying field respectively.\n Following the algorithm, we first introduce all the relevant variables in the context, so that it becomes V F W : Type, f : V - W, w* : W - F, v : V, with the goal now being to construct a term of type F. The term w* : W - F in the context eventually returns F, but only when given a term of type W. Recursively calling the algorithm changes the goal to W, and f : V - W is a term that returns W when given a term of type V. However, a term v : V is present in the context.\n Chaining these together gives w*(f v), the expression for the adjoint.\n —\n  ",
+  "wordCount" : "1213",
+  "inLanguage": "en",
+  "datePublished": "2022-04-25T10:22:24+05:30",
+  "dateModified": "2022-04-25T10:22:24+05:30",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://0art0.github.io/lambda-cube/posts/function-finder-tactic/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "λ-cube",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://0art0.github.io/lambda-cube/favicon.ico"
+    }
+  }
+}
+</script>
+</head>
+
+<body class="" id="top">
+<script>
+    if (localStorage.getItem("pref-theme") === "dark") {
+        document.body.classList.add('dark');
+    } else if (localStorage.getItem("pref-theme") === "light") {
+        document.body.classList.remove('dark')
+    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.body.classList.add('dark');
+    }
+
+</script>
+
+<header class="header">
+    <nav class="nav">
+        <div class="logo">
+            <a href="https://0art0.github.io/lambda-cube" accesskey="h" title="λ-cube (Alt + H)">λ-cube</a>
+            <span class="logo-switches">
+                <button id="theme-toggle" accesskey="t" title="(Alt + T)">
+                    <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+            </span>
+        </div>
+        <ul id="menu">
+        </ul>
+    </nav>
+</header>
+<main class="main">
+
+<article class="post-single">
+  <header class="post-header">
+    
+    <h1 class="post-title">
+      Implementing a function-finder tactic in Lean4
+    </h1>
+    <div class="post-meta"><span title='2022-04-25 10:22:24 +0530 IST'>April 25, 2022</span>
+
+</div>
+  </header> 
+  <div class="post-content">
+<div id="outline-container-headline-1" class="outline-2">
+<h2 id="headline-1">
+Introduction
+</h2>
+<div id="outline-text-headline-1" class="outline-text-2">
+<p>
+The <a href="https://github.com/leanprover/lean4">Lean theorem prover</a> is one of several that supports constructing proofs using <strong>tactics</strong> - commands that allow users to build up proofs step-by-step interactively at a high level of abstraction, usually interspersed with automation (for a demonstration of tactics and an introduction to Lean in general, consult the <a href="https://www.ma.imperial.ac.uk/~buzzard/xena/natural_number_game/">Natural Number Game</a>). One of the appealing aspects of Lean, especially Lean4, is that there is a robust framework in place for users to write custom tactics within the language, making Lean its own <span style="text-decoration: underline;">metaprogramming language</span>.</p>
+<p>
+In an attempt to familiarise myself with metaprogramming in Lean4, I have written a simple tactic <code class="verbatim">findProof</code> to construct functions, given their type. The type <code class="verbatim">A -&gt; A</code>, for instance, is inhabited by the identity function, and the type <code class="verbatim">A -&gt; B -&gt; A</code> also has a natural candidate that returns the first parameter ignoring the second. One would ideally like to algorithmically construct such functions from their types, and perhaps even apply this algorithm to obtain constructions arising natually in mathematics such as the adjoint of a linear transformation, the pushforward map between the tangent spaces of manifolds, or the isomorphism in the Gelfand-Naimark theorem of functional analysis.</p>
+<p>
+The rest of the post contains examples of the <code class="verbatim">findProof</code> tactic in action on all the above-mentioned types, followed by a detailed explanation of the algorithm behind the tactic. The code for the tactic is available at <a href="https://gist.github.com/0art0/91b763b39c57a015b94b739d02bcc671">this link</a>.</p>
+</div>
+</div>
+<div id="outline-container-headline-2" class="outline-2">
+<h2 id="headline-2">
+Examples
+</h2>
+<div id="outline-text-headline-2" class="outline-text-2">
+<p>
+These are a few functions that were created using the <code class="verbatim">findProof</code> tactic. The name and type of the function are specified by the user, and the actual function body is produced by the tactic. The functions are written according to the usual parenthesis-free style of functional programming.</p>
+<div id="outline-container-headline-3" class="outline-3">
+<h3 id="headline-3">
+Identity
+</h3>
+<div id="outline-text-headline-3" class="outline-text-3">
+<p>The identity function, one of the simplest examples of a function that can be produced from the type information alone.</p>
+<div class="src src-lean">
+<pre tabindex="0"><code class="language-lean" data-lang="lean">def ident : {A : Type} → A → A :=
+fun {A} a =&gt; a</code></pre>
+</div>
+</div>
+</div>
+<div id="outline-container-headline-4" class="outline-3">
+<h3 id="headline-4">
+First projection
+</h3>
+<div id="outline-text-headline-4" class="outline-text-3">
+<p>A function that projects onto the first input is the most natural candidate for a function of type <code class="verbatim">A -&gt; B -&gt; A</code>.</p>
+<div class="src src-lean">
+<pre tabindex="0"><code class="language-lean" data-lang="lean">def proj₁ : {A B : Type} → A → B → A :=
+fun {A B} a a_1 =&gt; a</code></pre>
+</div>
+</div>
+</div>
+<div id="outline-container-headline-5" class="outline-3">
+<h3 id="headline-5">
+Modus ponens
+</h3>
+<div id="outline-text-headline-5" class="outline-text-3">
+<p>The rule of inference in propositional logic - modus ponens (if <code class="verbatim">P -&gt; Q</code> as well as <code class="verbatim">P</code> are the premises, the conclusion is <code class="verbatim">Q</code>) - can also be expressed in terms of functions and types by the Curry-Howard correspondence between propositions and types. The types <code class="verbatim">P</code> and <code class="verbatim">Q</code> are of type <code class="verbatim">Type</code> rather than <code class="verbatim">Prop</code> as there are issues with displaying terms of types in the universe <code class="verbatim">Prop</code>.</p>
+<div class="src src-lean">
+<pre tabindex="0"><code class="language-lean" data-lang="lean">def modusPonens : {P Q : Type} → (P → Q) → P → Q :=
+fun {P Q} a a_1 =&gt; a a_1</code></pre>
+</div>
+</div>
+</div>
+<div id="outline-container-headline-6" class="outline-3">
+<h3 id="headline-6">
+A convoluted example
+</h3>
+<div id="outline-text-headline-6" class="outline-text-3">
+<p>This is an example demonstrating that the tactic is capable of handling reasonably large types.</p>
+<div class="src src-lean">
+<pre tabindex="0"><code class="language-lean" data-lang="lean">def convolutedexample : String → Float → (Unit → Int) → (Int → Nat) → (String → Unit) → Nat :=
+fun a a_1 a_2 a_3 a_4 =&gt; a_3 (a_2 (a_4 a))</code></pre>
+</div>
+</div>
+</div>
+<div id="outline-container-headline-7" class="outline-3">
+<h3 id="headline-7">
+Adjoint of a linear transformation
+</h3>
+<div id="outline-text-headline-7" class="outline-text-3">
+<p>Given a linear transformation $T: V \to W$, one can construct its adjoint $T^{*}: W^{*} \to V^{*}$ between the dual spaces as $T^{*}(w^{*})(v) := w^{*}(T(v))$.</p>
+<p>
+The expression for the adjoint of a linear transformation between vector spaces has a particularly nice form that can be derived in a similar manner to the above examples purely based on the type information.</p>
+<p>
+If the types <code class="verbatim">V F W : Type</code> below are replaced by <code class="verbatim">P Q F : Prop</code>, the type changes to the statement of contraposition of logical implication.</p>
+<div class="src src-lean">
+<pre tabindex="0"><code class="language-lean" data-lang="lean">def adjoint : {V W F : Type} → (V → W) → (W → F) → V → F :=
+fun {V W F} a a_1 a_2 =&gt; a_1 (a a_2)</code></pre>
+</div>
+</div>
+</div>
+<div id="outline-container-headline-8" class="outline-3">
+<h3 id="headline-8">
+Gelfand-Naimark isomorphism
+</h3>
+<div id="outline-text-headline-8" class="outline-text-3">
+<p>Another example is the Gelfand-Naimark theorem in functional analysis asserting a bijection between a $C^{*}$-algebra $A$ and $C(\hat{A})$, the ring of continuous complex-valued functions on the set of $C^{*}$-homomorphisms between $A$ and $\mathbb{C}$ (with a suitable topology).</p>
+<div class="src src-lean">
+<pre tabindex="0"><code class="language-lean" data-lang="lean">def gelfand_naimark : {A ℂ : Type} → A → (A → ℂ) → ℂ :=
+fun {A ℂ} a a_1 =&gt; a_1 a</code></pre>
+</div>
+</div>
+</div>
+<div id="outline-container-headline-9" class="outline-3">
+<h3 id="headline-9">
+<span class="todo">TODO</span>
+The differential map between tangent spaces
+</h3>
+<div id="outline-text-headline-9" class="outline-text-3">
+<p>If $f:M \to N$ is a map between manifolds, one can define a map $df_{p}$ taking $T_{p}(M)$, the tangent space at the point $p$ of $M$, to $T_{f(p)}(N)$. Here, tangent vectors are regarded as derivations.</p>
+<p>
+Unlike the previous examples, this one requires some special care since there is potential for infinite looping during the proof search (explained in the next section).</p>
+<div class="src src-lean">
+<pre tabindex="0"><code class="language-lean" data-lang="lean"></code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div id="outline-container-headline-10" class="outline-2">
+<h2 id="headline-10">
+The algorithm
+</h2>
+<div id="outline-text-headline-10" class="outline-text-2">
+<p>
+A term of the function type <code class="verbatim">A -&gt; B</code> in type theory is usually produced either by recursion (more technically, by applying the induction principle where the source is an inductive type), or by considering an arbitrary element <code class="verbatim">a : A</code> of type <code class="verbatim">A</code> and then producing an element of type <code class="verbatim">B</code> in its context. This algorithm considers only the latter method of constructing functions, since it is applicable even when nothing about the source and target types is known. Therefore, to construct a term of an arbitrary function type <code class="verbatim">A_1 -&gt; (A_2 -&gt; ... (A_n -&gt; B))</code>, terms <code class="verbatim">a_1 : A_1, a_2:A_2, ..., a_n:A_n</code> must first be introduced into the context.</p>
+<p>
+To now construct a term of type <code class="verbatim">B</code> from just the available terms, a good strategy is to scan the context for functions that eventually return <code class="verbatim">B</code>, i.e., terms of type <code class="verbatim">C_1 -&gt; (C_2 -&gt; ... (C_m -&gt; B))</code>, where <code class="verbatim">m</code> is possibly zero. The <code class="verbatim">B</code> at the end must be &#34;unlocked&#34; to use such a term; in other words, terms of all types <code class="verbatim">C_1, C_2, ..., C_m</code> must first be produced to use such a function to construct a term of type <code class="verbatim">B</code>. The problem of generating terms of types <code class="verbatim">C_1, C_2, ..., C_m</code> in the given context is similar to the original one, making a recursive strategy viable.</p>
+<p>
+The tactic succeeds if all terms of types <code class="verbatim">C_1, C_2, ..., C_m</code> can be constructed, and otherwise it moves to the next term in the context that eventually returns <code class="verbatim">B</code>. If the type <code class="verbatim">B</code> cannot be constructed from any of the relevant terms in the context, the tactic fails.</p>
+</div>
+</div>
+<div id="outline-container-headline-11" class="outline-2">
+<h2 id="headline-11">
+An illustration of the algorithm
+</h2>
+<div id="outline-text-headline-11" class="outline-text-2">
+<p>
+Consider the problem of finding an expression for the adjoint of a linear transformation. The corresponding type to be inhabited is <code class="verbatim">(V -&gt; W) -&gt; ((W -&gt; F) -&gt; (V -&gt; F))</code>, where <code class="verbatim">V, W, F</code> are types meant to represent two vector spaces and the underlying field respectively.</p>
+<p>
+Following the algorithm, we first introduce all the relevant variables in the context, so that it becomes <code class="verbatim">V F W : Type, f : V -&gt; W, w* : W -&gt; F, v : V</code>, with the goal now being to construct a term of type <code class="verbatim">F</code>. The term <code class="verbatim">w* : W -&gt; F</code> in the context eventually returns <code class="verbatim">F</code>, but only when given a term of type <code class="verbatim">W</code>. Recursively calling the algorithm changes the goal to <code class="verbatim">W</code>, and <code class="verbatim">f : V -&gt; W</code> is a term that returns <code class="verbatim">W</code> when given a term of type <code class="verbatim">V</code>. However, a term <code class="verbatim">v : V</code> is present in the context.</p>
+<p>
+Chaining these together gives <code class="verbatim">w*(f v)</code>, the expression for the adjoint.</p>
+<p>
+—</p>
+</div>
+</div>
+
+
+  </div>
+
+  <footer class="post-footer">
+    <ul class="post-tags">
+    </ul>
+  </footer>
+</article>
+    </main>
+    
+<footer class="footer">
+    <span>&copy; 2022 <a href="https://0art0.github.io/lambda-cube">λ-cube</a></span>
+    <span>
+        Powered by
+        <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &
+        <a href="https://git.io/hugopapermod" rel="noopener" target="_blank">PaperMod</a>
+    </span>
+</footer>
+<a href="#top" aria-label="go to top" title="Go to Top (Alt + G)" class="top-link" id="top-link" accesskey="g">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentColor">
+        <path d="M12 6H0l6-6z" />
+    </svg>
+</a>
+
+<script>
+    let menu = document.getElementById('menu')
+    if (menu) {
+        menu.scrollLeft = localStorage.getItem("menu-scroll-position");
+        menu.onscroll = function () {
+            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+        }
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            var id = this.getAttribute("href").substr(1);
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
+                    behavior: "smooth"
+                });
+            } else {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
+            }
+            if (id === "top") {
+                history.replaceState(null, null, " ");
+            } else {
+                history.pushState(null, null, `#${id}`);
+            }
+        });
+    });
+
+</script>
+<script>
+    var mybutton = document.getElementById("top-link");
+    window.onscroll = function () {
+        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
+            mybutton.style.visibility = "visible";
+            mybutton.style.opacity = "1";
+        } else {
+            mybutton.style.visibility = "hidden";
+            mybutton.style.opacity = "0";
+        }
+    };
+
+</script>
+<script>
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+        if (document.body.className.includes("dark")) {
+            document.body.classList.remove('dark');
+            localStorage.setItem("pref-theme", 'light');
+        } else {
+            document.body.classList.add('dark');
+            localStorage.setItem("pref-theme", 'dark');
+        }
+    })
+
+</script>
+</body>
+
+</html>
