@@ -1,4 +1,5 @@
 #+title: Solving equations in Abelian groups
+#+date: 22-18-09
 #+math: true
 #+draft: false
 

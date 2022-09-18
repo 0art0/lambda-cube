@@ -1,0 +1,39 @@
+baseURL: "https://0art0.github.io/lambda-cube"
+title: "λ-cube"
+theme: PaperMod
+publishDir: "docs"
+
+enableInlineShortcodes: true
+buildDrafts: true
+enableEmoji: true
+pygmentsUseClasses: true
+
+params:
+  description: "A blog on mathematics, foundations, computer science, theorem provers and more."
+  author: Anand
+
+  defaultTheme: auto
+  ShowReadingTime: true
+  ShowPostNavLinks: true
+  ShowBreadCrumbs: true
+  ShowCodeCopyButtons: true
+  ShowRssButtonInSectionTermList: true
+  ShowToc: true
+  comments: true
+
+  homeInfoParams:
+    Title: "λ-cube"
+    Content: >
+      Welcome to **λ-cube**, a blog on mathematics, foundations, computer science, theorem provers and more." 
+
+  socialIcons:
+    - name: github
+      url: "https://github.com/0art0"
+
+    - name: Rss
+      url: "index.xml"
+
+  editPost:
+    URL: "https://github.com/0art0/lambda-cube/tree/main/docs/posts"
+    Text: "Suggest changes"
+    appendFilePath: true
