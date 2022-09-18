@@ -5,6 +5,7 @@ publishDir: "docs"
 
 enableInlineShortcodes: true
 buildDrafts: true
+buildFuture: true
 enableEmoji: true
 pygmentsUseClasses: true
 
