@@ -5,7 +5,6 @@
     <link>https://0art0.github.io/lambda-cube/posts/</link>
     <description>Recent content in Posts on λ-cube</description>
     <generator>Hugo -- gohugo.io</generator>
-    <language>en-in</language>
     <lastBuildDate>Tue, 26 Apr 2022 23:11:03 +0530</lastBuildDate><atom:link href="https://0art0.github.io/lambda-cube/posts/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>&#34;A category-theoretic description of a group ring&#34;</title>
@@ -13,8 +12,8 @@
       <pubDate>Tue, 26 Apr 2022 23:11:03 +0530</pubDate>
       
       <guid>https://0art0.github.io/lambda-cube/posts/a-category-theoretic-definition-of-a-group-ring/</guid>
-      <description>Introduction   Mathematical objects can often be described in several ways, each description usually offering a different perspective and serving a different purpose.
- For example, group rings - the subject of this post - can be described in two very different ways. Given a group G and a ring R, one way to think of the group ring R[G] is as the space of functions from G to R having finite support, with addition being pointwise and multiplication given by convolution.</description>
+      <description>Introduction Mathematical objects can often be described in several ways, each description usually offering a different perspective and serving a different purpose.
+For example, group rings - the subject of this post - can be described in two very different ways. Given a group G and a ring R, one way to think of the group ring R[G] is as the space of functions from G to R having finite support, with addition being pointwise and multiplication given by convolution.</description>
     </item>
     
     <item>
@@ -23,16 +22,17 @@
       <pubDate>Mon, 25 Apr 2022 10:22:24 +0530</pubDate>
       
       <guid>https://0art0.github.io/lambda-cube/posts/function-finder-tactic/</guid>
-      <description>Introduction   The Lean theorem prover is one of several that supports constructing proofs using tactics - commands that allow users to build up proofs step-by-step interactively at a high level of abstraction, usually interspersed with automation (for a demonstration of tactics and an introduction to Lean in general, consult the Natural Number Game). One of the appealing aspects of Lean, especially Lean4, is that there is a robust framework in place for users to write custom tactics within the language, making Lean its own metaprogramming language.</description>
+      <description>Introduction The Lean theorem prover is one of several that supports constructing proofs using tactics - commands that allow users to build up proofs step-by-step interactively at a high level of abstraction, usually interspersed with automation (for a demonstration of tactics and an introduction to Lean in general, consult the Natural Number Game). One of the appealing aspects of Lean, especially Lean4, is that there is a robust framework in place for users to write custom tactics within the language, making Lean its own metaprogramming language.</description>
     </item>
     
     <item>
-      <title>Test Post</title>
-      <link>https://0art0.github.io/lambda-cube/posts/test-post/</link>
-      <pubDate>Sun, 24 Apr 2022 19:17:30 +0530</pubDate>
+      <title>Solving equations in Abelian groups</title>
+      <link>https://0art0.github.io/lambda-cube/posts/solving-equations-in-abelian-groups/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://0art0.github.io/lambda-cube/posts/test-post/</guid>
-      <description>Some text.</description>
+      <guid>https://0art0.github.io/lambda-cube/posts/solving-equations-in-abelian-groups/</guid>
+      <description>The word problem for groups Groups are often studied combinatorially via presentations in terms of generators and relations. The generators form the &amp;#34;alphabet&amp;#34; from which words representing group elements are built, and the relations identify pairs of words with each other.
+A fundamental algorithmic question about finitely-generated groups is if one can decide whether two given words in the generators represent the same element. This is known as the word problem for groups, and the general problem has been shown to be an undecidable.</description>
     </item>
     
   </channel>
