@@ -1,0 +1,76 @@
+#+title: Solving equations in Abelian groups
+#+math: true
+#+draft: false
+
+* The word problem for groups
+
+Groups are often studied combinatorially via presentations in terms of generators and relations. The _generators_ form the "alphabet" from which *words* representing group elements are built, and the _relations_ identify pairs of words with each other.
+
+A fundamental algorithmic question about finitely-generated groups is if one can decide whether two given words in the generators represent the same element. This is known as the word problem for groups, and the general problem has been shown to be an undecidable. More precisely, it has been shown that there is a finitely-generated group for which it is impossible to solve the word problem algorithmically.
+
+Although the word problem is undecidable in general, there are several groups for which it is possible to decide the equality of words in the generators algorithmically.
+
+* A general word problem for Abelian groups
+
+Consider the different but related problem of deciding whether of deciding whether an equation, such as
+
+$$ (x + y) + z + -(x + z) = y$$
+
+is true in all Abelian groups (this means that for any Abelian group $A$, and for any chosen values $x$, $y$ and $z$ in $A$, the equation should be true).
+
+This modified problem is hardly a problem, for humans atleast - by "expanding", "cancelling", "rearranging" and "grouping", anyone well-versed in high-school algebra can solve an arbitrary instance of this problem without much thought.
+
+However, this task is not trivial to carry out on a computer if one wants a full and rigorous proof in the end. The problem of deciding whether an equation holds in all Abelian groups is the same as deciding whether the equation can be deduced from the axioms for Abelian groups, and it is in the latter form that the problem is usually presented to the computer.
+
+The computer sees the equation not as a single line to be read from left to right, but rather as an equality of two complicated nested trees - this means that the computer cannot ignore the brackets and tinker easily with the order of the variables. A fully-bracketed version of the above
+
+$$ (((x) + (y)) + (z)) + (-((x) + (z))) = (y) $$
+
+Any proof from the axioms becomes a complicated ordeal of shuffling parentheses and swapping the order of adjacent variables, and even cancelling adjacent terms in an expression is a challenge when the terms are not immediately neighbours in the tree. Moreover, even if one is able to produce an algorithm that proves these equalities directly from the axioms, it is unlikely that the algorithm will have a good running time (in terms of the number of variables in the expression, including duplicates).
+
+* A solution to the general word problem for Abelian groups
+
+It turns out that to prove that a formula involving $n$ variables is true in all Abelian groups, it suffices to show it for a specific set of $n$ elements in a specific Abelian group, namely the basis of the free Abelian group on $n$ elements ($\mathbb{Z}^{n}$).
+
+The crucial property that will be utilised is that $\mathbb{Z}^{n}$ is a free Abelian group, which by definition means that any map from the basis $\{(0, \ldots, 0, i, 0, \ldots, 0) \mid 1 \leq i \leq n\}$ to an Abelian group $A$ extends uniquely to an Abelian group homomorphism from $\mathbb{Z}^{n}$ to $A$.
+
+** A worked example
+
+The general solution is perhaps best illustrated by working out a specific example such as the one above:
+
+Plugging in $(1, 0, 0), (0, 1, 0), (0, 0, 1)$ for $x, y, z$ in the above example yields the equation
+
+$$ ((1, 0, 0) + (0, 1, 0)) + (0, 0, 1) - ((1, 0, 0) + (0, 0, 1)) = (0, 1, 0) $$
+
+which is true since both sides compute to $(0, 1, 0)$.
+
+Now consider an arbitrary Abelian group $A$, and elements $a, b, c$ in $A$. The function taking the basis element $(1, 0, 0)$ to $a$, $(0, 1, 0)$ to $b$, $(0, 0, 1)$ to $c$ extends to a unique homomorphism $\phi : \mathbb{Z}^{n} \to A$, and evaluating $\phi$ on the two sides of the above equation gives
+
+
+$$\phi\left(((1, 0, 0) + (0, 1, 0)) + (0, 0, 1) - ((1, 0, 0) + (0, 0, 1))\right) = \phi\left((0, 1, 0)\right)$$
+
+Distributing the homomorphism across addition and negation turns the expression into
+
+$$(\phi(1, 0, 0) + \phi(0, 1, 0)) + \phi(0, 0, 1) - (\phi(1, 0, 0) + \phi(0, 0, 1)) = \phi(0, 1, 0)$$
+
+which is precisely
+
+$$(a + b) + c - (a + c) = b$$,
+
+the required equation.
+
+** The general solution
+
+The general solution is a direct generalisation of the worked example. For an equation involving $n$ variables, consider the free Abelian group on $n$ generators. Verifying the equation for the $n$ generators is a matter of direct computation. This is enough to prove it for all Abelian groups, since for any Abelian group $A$ and $n$ elements $a_{1}, a_{2}, \ldots, a_{n}$ in $A$, there is a homomorphism sending the basis of the free group to these elements, and any equation involving only the Abelian group operations (addition, negation, subtraction) is preserved under homomorphisms.
+
+* Implementation of the solution
+
+One advantage of the approach illustrated in the previous section is that the proof is reduced to a computation - that of reducing two trees to ordered tuples of integers. This can be done in a time linear in the number of nodes of the tree, and hence linear in the number of leaves of the tree (since each node has at most two children), which is the number of varibles (with duplication) occurring in the expression.
+
+The Lean4 programming language is ideal for this kind of mixing of programs and proofs, and Siddhartha Gadgil and I have [[https://github.com/siddhartha-gadgil/Polylean/blob/main/Polylean/Experiments/Examples.lean][implemented a rough prototype]] of such a tactic for solving equations in Abelian groups. This is still not ready for direct use, but the plan is to polish it up, try to implement it in various ways, and eventually push it as a tactic to =mathlib4=.
+
+* TODO Generalisations of the solution
+
+The reduction of the general problem of proving an equation in all Abelian groups to the special case of the basis of the free Abelian group certainly was not specific to just Abelian groups, and it is likely that this kind of a reduction admits a more general formulation in the language of Category theory.
+
+The correct analog of the free Abelian group seems to be that of a [[https://en.wikipedia.org/wiki/Free_object][free object]] - the free objects in the category of groups are the free groups, the free objects in the category of rings are the polynomial rings, and so on. The notions of [[https://en.wikipedia.org/wiki/F-algebra][F-algebras]] and [[https://en.wikipedia.org/wiki/Monad_(category_theory)][monads]] also seems relevant here, but I do not understand the precise nature of the relations yet and will probably expand this section of the blog post later when I do.
