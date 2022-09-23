@@ -5,9 +5,31 @@
     <link>https://0art0.github.io/lambda-cube/posts/</link>
     <description>Recent content in Posts on λ-cube</description>
     <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Tue, 26 Apr 2022 23:11:03 +0530</lastBuildDate><atom:link href="https://0art0.github.io/lambda-cube/posts/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 18 Sep 2022 16:30:00 +0530</lastBuildDate><atom:link href="https://0art0.github.io/lambda-cube/posts/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>&#34;A category-theoretic description of a group ring&#34;</title>
+      <title>Solving equations in Abelian groups</title>
+      <link>https://0art0.github.io/lambda-cube/posts/solving-equations-in-abelian-groups/</link>
+      <pubDate>Sun, 18 Sep 2022 16:30:00 +0530</pubDate>
+      
+      <guid>https://0art0.github.io/lambda-cube/posts/solving-equations-in-abelian-groups/</guid>
+      <description>A general equality problem for Abelian groups Consider the problem of deciding whether of deciding whether an equation, such as
+$$ (x + y) + z + -(x + z) = y$$
+is true in all Abelian groups (this means that for any Abelian group $A$, and for any chosen values $x$, $y$ and $z$ in $A$, the equation should be true).
+This equality problem is hardly a problem, for humans atleast - by &amp;#34;expanding&amp;#34;, &amp;#34;cancelling&amp;#34;, &amp;#34;rearranging&amp;#34; and &amp;#34;grouping&amp;#34;, anyone well-versed in high-school algebra can solve an arbitrary instance of this problem without much thought.</description>
+    </item>
+    
+    <item>
+      <title>Formalising Gardam&#39;s disproof of Kaplansky&#39;s Unit Conjecture</title>
+      <link>https://0art0.github.io/lambda-cube/posts/formalising-gardams-disproof-of-kaplanskys-unit-conjecture/</link>
+      <pubDate>Wed, 08 Jun 2022 12:41:57 +0530</pubDate>
+      
+      <guid>https://0art0.github.io/lambda-cube/posts/formalising-gardams-disproof-of-kaplanskys-unit-conjecture/</guid>
+      <description>The Unit Conjecture The Unit Conjecture is a fundamental and well-known question about group rings that goes back to Graham Higman and Irving Kaplansky in the mid-twentieth century. It is a part of a collection of several conjectures posed by Kaplansky - most notably the Zero-divisor conjecture and the Idempotent conjecture. These are collectively known as Kaplansky&amp;#39;s conjectures.
+The statement Consider a field $K$ and a group $G$. In the group ring $K[G]$, the elements of the form $k \cdot g$, where $k \in K \backslash \{0\}$ and $g \in G$, are clearly invertible - with the inverse being $k^{-1} \cdot g^{-1}$.</description>
+    </item>
+    
+    <item>
+      <title>A category-theoretic description of a group ring</title>
       <link>https://0art0.github.io/lambda-cube/posts/a-category-theoretic-definition-of-a-group-ring/</link>
       <pubDate>Tue, 26 Apr 2022 23:11:03 +0530</pubDate>
       
@@ -23,16 +45,6 @@ For example, group rings - the subject of this post - can be described in two ve
       
       <guid>https://0art0.github.io/lambda-cube/posts/function-finder-tactic/</guid>
       <description>Introduction The Lean theorem prover is one of several that supports constructing proofs using tactics - commands that allow users to build up proofs step-by-step interactively at a high level of abstraction, usually interspersed with automation (for a demonstration of tactics and an introduction to Lean in general, consult the Natural Number Game). One of the appealing aspects of Lean, especially Lean4, is that there is a robust framework in place for users to write custom tactics within the language, making Lean its own metaprogramming language.</description>
-    </item>
-    
-    <item>
-      <title>Solving equations in Abelian groups</title>
-      <link>https://0art0.github.io/lambda-cube/posts/solving-equations-in-abelian-groups/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      
-      <guid>https://0art0.github.io/lambda-cube/posts/solving-equations-in-abelian-groups/</guid>
-      <description>The word problem for groups Groups are often studied combinatorially via presentations in terms of generators and relations. The generators form the &amp;#34;alphabet&amp;#34; from which words representing group elements are built, and the relations identify pairs of words with each other.
-A fundamental algorithmic question about finitely-generated groups is if one can decide whether two given words in the generators represent the same element. This is known as the word problem for groups, and the general problem has been shown to be an undecidable.</description>
     </item>
     
   </channel>

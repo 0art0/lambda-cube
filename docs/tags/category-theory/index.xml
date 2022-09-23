@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>category-theory on λ-cube</title>
+    <link>https://0art0.github.io/lambda-cube/tags/category-theory/</link>
+    <description>Recent content in category-theory on λ-cube</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <lastBuildDate>Sun, 18 Sep 2022 16:30:00 +0530</lastBuildDate><atom:link href="https://0art0.github.io/lambda-cube/tags/category-theory/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Solving equations in Abelian groups</title>
+      <link>https://0art0.github.io/lambda-cube/posts/solving-equations-in-abelian-groups/</link>
+      <pubDate>Sun, 18 Sep 2022 16:30:00 +0530</pubDate>
+      
+      <guid>https://0art0.github.io/lambda-cube/posts/solving-equations-in-abelian-groups/</guid>
+      <description>A general equality problem for Abelian groups Consider the problem of deciding whether of deciding whether an equation, such as
+$$ (x + y) + z + -(x + z) = y$$
+is true in all Abelian groups (this means that for any Abelian group $A$, and for any chosen values $x$, $y$ and $z$ in $A$, the equation should be true).
+This equality problem is hardly a problem, for humans atleast - by &amp;#34;expanding&amp;#34;, &amp;#34;cancelling&amp;#34;, &amp;#34;rearranging&amp;#34; and &amp;#34;grouping&amp;#34;, anyone well-versed in high-school algebra can solve an arbitrary instance of this problem without much thought.</description>
+    </item>
+    
+    <item>
+      <title>A category-theoretic description of a group ring</title>
+      <link>https://0art0.github.io/lambda-cube/posts/a-category-theoretic-definition-of-a-group-ring/</link>
+      <pubDate>Tue, 26 Apr 2022 23:11:03 +0530</pubDate>
+      
+      <guid>https://0art0.github.io/lambda-cube/posts/a-category-theoretic-definition-of-a-group-ring/</guid>
+      <description>Introduction Mathematical objects can often be described in several ways, each description usually offering a different perspective and serving a different purpose.
+For example, group rings - the subject of this post - can be described in two very different ways. Given a group G and a ring R, one way to think of the group ring R[G] is as the space of functions from G to R having finite support, with addition being pointwise and multiplication given by convolution.</description>
+    </item>
+    
+  </channel>
+</rss>

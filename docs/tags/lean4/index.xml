@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
   <channel>
-    <title>λ-cube</title>
-    <link>https://0art0.github.io/lambda-cube/</link>
-    <description>Recent content on λ-cube</description>
+    <title>lean4 on λ-cube</title>
+    <link>https://0art0.github.io/lambda-cube/tags/lean4/</link>
+    <description>Recent content in lean4 on λ-cube</description>
     <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Sun, 18 Sep 2022 16:30:00 +0530</lastBuildDate><atom:link href="https://0art0.github.io/lambda-cube/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 18 Sep 2022 16:30:00 +0530</lastBuildDate><atom:link href="https://0art0.github.io/lambda-cube/tags/lean4/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Solving equations in Abelian groups</title>
       <link>https://0art0.github.io/lambda-cube/posts/solving-equations-in-abelian-groups/</link>
@@ -26,16 +26,6 @@ This equality problem is hardly a problem, for humans atleast - by &amp;#34;expa
       <guid>https://0art0.github.io/lambda-cube/posts/formalising-gardams-disproof-of-kaplanskys-unit-conjecture/</guid>
       <description>The Unit Conjecture The Unit Conjecture is a fundamental and well-known question about group rings that goes back to Graham Higman and Irving Kaplansky in the mid-twentieth century. It is a part of a collection of several conjectures posed by Kaplansky - most notably the Zero-divisor conjecture and the Idempotent conjecture. These are collectively known as Kaplansky&amp;#39;s conjectures.
 The statement Consider a field $K$ and a group $G$. In the group ring $K[G]$, the elements of the form $k \cdot g$, where $k \in K \backslash \{0\}$ and $g \in G$, are clearly invertible - with the inverse being $k^{-1} \cdot g^{-1}$.</description>
-    </item>
-    
-    <item>
-      <title>A category-theoretic description of a group ring</title>
-      <link>https://0art0.github.io/lambda-cube/posts/a-category-theoretic-definition-of-a-group-ring/</link>
-      <pubDate>Tue, 26 Apr 2022 23:11:03 +0530</pubDate>
-      
-      <guid>https://0art0.github.io/lambda-cube/posts/a-category-theoretic-definition-of-a-group-ring/</guid>
-      <description>Introduction Mathematical objects can often be described in several ways, each description usually offering a different perspective and serving a different purpose.
-For example, group rings - the subject of this post - can be described in two very different ways. Given a group G and a ring R, one way to think of the group ring R[G] is as the space of functions from G to R having finite support, with addition being pointwise and multiplication given by convolution.</description>
     </item>
     
     <item>

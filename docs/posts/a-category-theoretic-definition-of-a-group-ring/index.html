@@ -5,8 +5,8 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <meta name="robots" content="index, follow">
-<title>&#34;A category-theoretic description of a group ring&#34; | λ-cube</title>
-<meta name="keywords" content="">
+<title>A category-theoretic description of a group ring | λ-cube</title>
+<meta name="keywords" content="category-theory">
 <meta name="description" content="Introduction Mathematical objects can often be described in several ways, each description usually offering a different perspective and serving a different purpose.
 For example, group rings - the subject of this post - can be described in two very different ways. Given a group G and a ring R, one way to think of the group ring R[G] is as the space of functions from G to R having finite support, with addition being pointwise and multiplication given by convolution.">
 <meta name="author" content="Anand">
@@ -58,7 +58,7 @@ For example, group rings - the subject of this post - can be described in two ve
 
     </style>
 </noscript>
-<meta property="og:title" content="&#34;A category-theoretic description of a group ring&#34;" />
+<meta property="og:title" content="A category-theoretic description of a group ring" />
 <meta property="og:description" content="Introduction Mathematical objects can often be described in several ways, each description usually offering a different perspective and serving a different purpose.
 For example, group rings - the subject of this post - can be described in two very different ways. Given a group G and a ring R, one way to think of the group ring R[G] is as the space of functions from G to R having finite support, with addition being pointwise and multiplication given by convolution." />
 <meta property="og:type" content="article" />
@@ -67,7 +67,7 @@ For example, group rings - the subject of this post - can be described in two ve
 <meta property="article:modified_time" content="2022-04-26T23:11:03+05:30" />
 
 <meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="&#34;A category-theoretic description of a group ring&#34;"/>
+<meta name="twitter:title" content="A category-theoretic description of a group ring"/>
 <meta name="twitter:description" content="Introduction Mathematical objects can often be described in several ways, each description usually offering a different perspective and serving a different purpose.
 For example, group rings - the subject of this post - can be described in two very different ways. Given a group G and a ring R, one way to think of the group ring R[G] is as the space of functions from G to R having finite support, with addition being pointwise and multiplication given by convolution."/>
 
@@ -86,7 +86,7 @@ For example, group rings - the subject of this post - can be described in two ve
     {
       "@type": "ListItem",
       "position":  3 ,
-      "name": "\"A category-theoretic description of a group ring\"",
+      "name": "A category-theoretic description of a group ring",
       "item": "https://0art0.github.io/lambda-cube/posts/a-category-theoretic-definition-of-a-group-ring/"
     }
   ]
@@ -96,11 +96,11 @@ For example, group rings - the subject of this post - can be described in two ve
 {
   "@context": "https://schema.org",
   "@type": "BlogPosting",
-  "headline": "\"A category-theoretic description of a group ring\"",
-  "name": "\u0022A category-theoretic description of a group ring\u0022",
+  "headline": "A category-theoretic description of a group ring",
+  "name": "A category-theoretic description of a group ring",
   "description": "Introduction Mathematical objects can often be described in several ways, each description usually offering a different perspective and serving a different purpose.\nFor example, group rings - the subject of this post - can be described in two very different ways. Given a group G and a ring R, one way to think of the group ring R[G] is as the space of functions from G to R having finite support, with addition being pointwise and multiplication given by convolution.",
   "keywords": [
-    
+    "category-theory"
   ],
   "articleBody": " Introduction Mathematical objects can often be described in several ways, each description usually offering a different perspective and serving a different purpose.\nFor example, group rings - the subject of this post - can be described in two very different ways. Given a group G and a ring R, one way to think of the group ring R[G] is as the space of functions from G to R having finite support, with addition being pointwise and multiplication given by convolution. Another description of elements of R[G] is as finite formal linear combinations of group elements with coefficients in the ring R.\nThis kind of flexibility in the choice of a definition can however be a constraint in formalisation, as one might end up proving the same result multiple times - each time with a different representation of the underlying object. It is therefore desirable to have a \"meta-theorem\" that states that theorems proved for one representation are valid for a different representation of the object (theorems can be \"transported\" across isomorphisms this way in the framework of Homotopy Type Theory, from what I understand), or even better, to have an abstract and conceptual description of the underlying object that does not depend on how it is represented. In the second case, one can prove all results using the abstract description of the object and then simply show that a particular concrete representation satisfies the abstract property.\nThe rest of this post is about one such abstract description of group rings in the language of category theory.\nSome Category theory This post assumes some familiarity with categories, functors, natural transformations and other fundamental notions in category theory. Some of the other concepts that will be used are described below.\nGroup actions A category comes equipped with an identity morphism for each object, together with a composition operation on compatible morphisms. The situation is even better in the case of a category with a single object, where any pair of morphisms can be composed. This leads to the natural definition of a group as a single-object category where every morphism is an isomorphism (i.e., every morphism is invertible). The elements of the group are the morphisms of the single-object category, and the group operation is composition of morphisms.\nThinking of a group as an entire category may be strange, but it has its advantages. For instance, a group action on a set is just a functor from the single-object category associated with the group to the category of sets. Similarly, a group representation is a functor from the category to the category of vector spaces over a chosen field.\nFunctor categories Functors are maps between categories, and natural transformations are maps between functors with the same source and target. In some sense, a natural transformation is a \"morphism\" between functors. This intuition is made precise through the definition of the functor category.\nIf C and D are categories, the functor category D^C has objects as functors from C to D and morphisms as natural transformations. Continuing the earlier examples, the category of all representations of a group G over is simply the functor category where the source category is the group G (thought of as a single-object category) and the target is the category of vector spaces over the complex numbers.\nInitial objects An initial object of a category is one that has a unique morphism to every object of the category. In the category of groups, for example, the initial object is the trivial group.\nIt follows from this description that any two initial objects of a category must be unique up to a unique isomorphism.\nA category-theoretic description of a group ring Given a ring R and a group G, the objective is to give an abstract description of the group ring R[G].\nThe category of R-algebras, where the objects are R-algebras and the morphisms are R-algebra homomorphisms, will serve as the starting point. To bring the group G into the picture, consider G-actions on R-algebras.\nAs mentioned earlier, an action of the group G on an R-algebra can be considered as a functor from the group (treated as a single-object category) to the category of R-algebras. Studying all such actions on R-algebras at once amounts to constructing the functor category with the source of the functors being the group and the target being the category of R-algebras.\nThe claim now is that the group ring R[G] is nothing but the initial object in this functor category.\nTo see this, we must first show that the group ring R[G] actually lies in this category. This however follows from the natural multiplicative structure of R[G]. Next, consider any element of the above category, which is essentially an R-algebra together with a group action.\nTo show that there is a unique map from R[G] to this R-algebra, we first deduce the properties that such a homomorphism must satisfy and then observe that it forces there to be unique map. An arbitrary word $\\sum_{i} r_{i}g_{i}$ of R[G] is mapped by a homomorphism $\\phi$ to $\\phi(\\sum_{i} r_{i}g_{i}) = \\sum_{i} \\phi(r_{i}g_{i})$. However, the map $\\phi$ is $G$-equivariant as it is a morphism in the functor category, and hence a natural transformation between the corresponding functors. Therefore, the expression $\\sum_{i} \\phi(r_{i}g_{i})$ is equal to $\\sum_{i} \\phi(r_{i}) g_{i}$. Since all the $r_{i}$ are scalars coming from the ring R, they must be fixed by the $R$-algebra homomorphism $\\phi$. Therefore, any homomorphism from R[G] to an object is essentially uniquely determined, and is a valid homomorphism.\nTODO The thought process The process of ariving at the above result was far messier than presented. This section will present some of the ideas that eventually led to the above formulation (it has been a few days since I first came up with this, so some details will be missing).\n",
   "wordCount" : "969",
@@ -176,7 +176,7 @@ For example, group rings - the subject of this post - can be described in two ve
   <header class="post-header">
     <div class="breadcrumbs"><a href="https://0art0.github.io/lambda-cube">Home</a>&nbsp;»&nbsp;<a href="https://0art0.github.io/lambda-cube/posts/">Posts</a></div>
     <h1 class="post-title">
-      &#34;A category-theoretic description of a group ring&#34;
+      A category-theoretic description of a group ring
     </h1>
     <div class="post-meta"><span title='2022-04-26 23:11:03 +0530 IST'>April 26, 2022</span>&nbsp;·&nbsp;5 min&nbsp;·&nbsp;Anand&nbsp;|&nbsp;<a href="https://github.com/0art0/lambda-cube/tree/main/docs/posts/posts/a-category-theoretic-definition-of-a-group-ring.org" rel="noopener noreferrer" target="_blank">Suggest changes</a>
 
@@ -276,8 +276,14 @@ The process of ariving at the above result was far messier than presented. This 
 
   <footer class="post-footer">
     <ul class="post-tags">
+      <li><a href="https://0art0.github.io/lambda-cube/tags/category-theory/">category-theory</a></li>
     </ul>
 <nav class="paginav">
+  <a class="prev" href="https://0art0.github.io/lambda-cube/posts/formalising-gardams-disproof-of-kaplanskys-unit-conjecture/">
+    <span class="title">« Prev</span>
+    <br>
+    <span>Formalising Gardam&#39;s disproof of Kaplansky&#39;s Unit Conjecture</span>
+  </a>
   <a class="next" href="https://0art0.github.io/lambda-cube/posts/function-finder-tactic/">
     <span class="title">Next »</span>
     <br>

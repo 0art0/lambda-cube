@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="en" dir="auto">
+
+<head><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="index, follow">
+<title>Formalising Gardam&#39;s disproof of Kaplansky&#39;s Unit Conjecture | λ-cube</title>
+<meta name="keywords" content="maths, lean4">
+<meta name="description" content="The Unit Conjecture The Unit Conjecture is a fundamental and well-known question about group rings that goes back to Graham Higman and Irving Kaplansky in the mid-twentieth century. It is a part of a collection of several conjectures posed by Kaplansky - most notably the Zero-divisor conjecture and the Idempotent conjecture. These are collectively known as Kaplansky&#39;s conjectures.
+The statement Consider a field $K$ and a group $G$. In the group ring $K[G]$, the elements of the form $k \cdot g$, where $k \in K \backslash \{0\}$ and $g \in G$, are clearly invertible - with the inverse being $k^{-1} \cdot g^{-1}$.">
+<meta name="author" content="Anand">
+<link rel="canonical" href="https://0art0.github.io/lambda-cube/posts/formalising-gardams-disproof-of-kaplanskys-unit-conjecture/">
+<link crossorigin="anonymous" href="/lambda-cube/assets/css/stylesheet.bc1149f4a72aa4858d3a9f71462f75e5884ffe8073ea9d6d5761d5663d651e20.css" integrity="sha256-vBFJ9KcqpIWNOp9xRi915YhP/oBz6p1tV2HVZj1lHiA=" rel="preload stylesheet" as="style">
+<script defer crossorigin="anonymous" src="/lambda-cube/assets/js/highlight.f413e19d0714851f6474e7ee9632408e58ac146fbdbe62747134bea2fa3415e0.js" integrity="sha256-9BPhnQcUhR9kdOfuljJAjlisFG&#43;9vmJ0cTS&#43;ovo0FeA="
+    onload="hljs.initHighlightingOnLoad();"></script>
+<link rel="icon" href="https://0art0.github.io/lambda-cube/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="https://0art0.github.io/lambda-cube/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="https://0art0.github.io/lambda-cube/favicon-32x32.png">
+<link rel="apple-touch-icon" href="https://0art0.github.io/lambda-cube/apple-touch-icon.png">
+<link rel="mask-icon" href="https://0art0.github.io/lambda-cube/safari-pinned-tab.svg">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<noscript>
+    <style>
+        #theme-toggle,
+        .top-link {
+            display: none;
+        }
+
+    </style>
+    <style>
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --theme: rgb(29, 30, 32);
+                --entry: rgb(46, 46, 51);
+                --primary: rgb(218, 218, 219);
+                --secondary: rgb(155, 156, 157);
+                --tertiary: rgb(65, 66, 68);
+                --content: rgb(196, 196, 197);
+                --hljs-bg: rgb(46, 46, 51);
+                --code-bg: rgb(55, 56, 62);
+                --border: rgb(51, 51, 51);
+            }
+
+            .list {
+                background: var(--theme);
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-track {
+                background: 0 0;
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-thumb {
+                border-color: var(--theme);
+            }
+        }
+
+    </style>
+</noscript>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.2/dist/katex.min.css" integrity="sha384-bYdxxUwYipFNohQlHt0bjN/LCpueqWz13HufFEV1SUatKs1cm4L6fFgCi1jT643X" crossorigin="anonymous">
+
+
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.2/dist/katex.min.js" integrity="sha384-Qsn9KnoKISj6dI8g7p1HBlNpVx0I8p1SvlwOldgi3IorMle61nQy4zEahWYtljaz" crossorigin="anonymous"></script>
+
+
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.2/dist/contrib/auto-render.min.js" integrity="sha384-+VBxd3r6XgURycqtZ117nYw44OOcIax56Z4dCRWbxyPt0Koah1uHoK0o4+/RRE05" crossorigin="anonymous"
+        onload="renderMathInElement(document.body);"></script>
+
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+    renderMathInElement(document.body, {
+        delimiters: [
+            {left: "$$", right: "$$", display: true},
+            {left: "$", right: "$", display: false}
+        ]
+    });
+});
+</script>
+
+
+<meta property="og:title" content="Formalising Gardam&#39;s disproof of Kaplansky&#39;s Unit Conjecture" />
+<meta property="og:description" content="The Unit Conjecture The Unit Conjecture is a fundamental and well-known question about group rings that goes back to Graham Higman and Irving Kaplansky in the mid-twentieth century. It is a part of a collection of several conjectures posed by Kaplansky - most notably the Zero-divisor conjecture and the Idempotent conjecture. These are collectively known as Kaplansky&#39;s conjectures.
+The statement Consider a field $K$ and a group $G$. In the group ring $K[G]$, the elements of the form $k \cdot g$, where $k \in K \backslash \{0\}$ and $g \in G$, are clearly invertible - with the inverse being $k^{-1} \cdot g^{-1}$." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://0art0.github.io/lambda-cube/posts/formalising-gardams-disproof-of-kaplanskys-unit-conjecture/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2022-06-08T12:41:57+05:30" />
+<meta property="article:modified_time" content="2022-06-08T12:41:57+05:30" />
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Formalising Gardam&#39;s disproof of Kaplansky&#39;s Unit Conjecture"/>
+<meta name="twitter:description" content="The Unit Conjecture The Unit Conjecture is a fundamental and well-known question about group rings that goes back to Graham Higman and Irving Kaplansky in the mid-twentieth century. It is a part of a collection of several conjectures posed by Kaplansky - most notably the Zero-divisor conjecture and the Idempotent conjecture. These are collectively known as Kaplansky&#39;s conjectures.
+The statement Consider a field $K$ and a group $G$. In the group ring $K[G]$, the elements of the form $k \cdot g$, where $k \in K \backslash \{0\}$ and $g \in G$, are clearly invertible - with the inverse being $k^{-1} \cdot g^{-1}$."/>
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [, 
+    {
+      "@type": "ListItem",
+      "position":  2 ,
+      "name": "Posts",
+      "item": "https://0art0.github.io/lambda-cube/posts/"
+    }, 
+    {
+      "@type": "ListItem",
+      "position":  3 ,
+      "name": "Formalising Gardam's disproof of Kaplansky's Unit Conjecture",
+      "item": "https://0art0.github.io/lambda-cube/posts/formalising-gardams-disproof-of-kaplanskys-unit-conjecture/"
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "Formalising Gardam's disproof of Kaplansky's Unit Conjecture",
+  "name": "Formalising Gardam\u0027s disproof of Kaplansky\u0027s Unit Conjecture",
+  "description": "The Unit Conjecture The Unit Conjecture is a fundamental and well-known question about group rings that goes back to Graham Higman and Irving Kaplansky in the mid-twentieth century. It is a part of a collection of several conjectures posed by Kaplansky - most notably the Zero-divisor conjecture and the Idempotent conjecture. These are collectively known as Kaplansky\u0026#39;s conjectures.\nThe statement Consider a field $K$ and a group $G$. In the group ring $K[G]$, the elements of the form $k \\cdot g$, where $k \\in K \\backslash \\{0\\}$ and $g \\in G$, are clearly invertible - with the inverse being $k^{-1} \\cdot g^{-1}$.",
+  "keywords": [
+    "maths", "lean4"
+  ],
+  "articleBody": " The Unit Conjecture The Unit Conjecture is a fundamental and well-known question about group rings that goes back to Graham Higman and Irving Kaplansky in the mid-twentieth century. It is a part of a collection of several conjectures posed by Kaplansky - most notably the Zero-divisor conjecture and the Idempotent conjecture. These are collectively known as Kaplansky's conjectures.\nThe statement Consider a field $K$ and a group $G$. In the group ring $K[G]$, the elements of the form $k \\cdot g$, where $k \\in K \\backslash \\{0\\}$ and $g \\in G$, are clearly invertible - with the inverse being $k^{-1} \\cdot g^{-1}$. These are known as the trivial units of the group ring $K[G]$.\nFurthermore, suppose now that the group $G$ is torsion-free, i.e., there are no elements of finite order other than the identity element. Then the Unit Conjecture states\nThe only units in the group ring $K[G]$, where $K$ is a field and $G$ is a torsion-free group, are the trivial units.\nGardam's disproof In 2021, Giles Gardam finally settled the Unit conjecture in the negative. The proof was constructive, in the sense that Gardam provided an explicit field ($\\mathbb{F}_{2$}, the finite field on two elements) and a torsion-free group (the Promislow or Hantzsche-Wendt group, denoted $P$), along with two non-trivial elements that are inverses of each other.\nFormalising Gardam's disproof A complete formal proof of Gardam's disproof would involve two broad components:\nA proof that the group $P$ is torsion-free A proof that the given elements multiply to one. This is an interesting target for formalisation not only because it is an important mathematical result and is self-contained, but also because formalising this requires a blend of proofs and computation.\nSiddhartha Gadgil and I recently formalised this result in Lean4, the latest release of the Lean theorem prover that is designed from the ground up as both a programming language as well as a theorem prover.\nA detailed account of the formalisation is available on Siddhartha Gadgil's blog. This post will explore some of the design choices we made in our formalisation.\n",
+  "wordCount" : "345",
+  "inLanguage": "en",
+  "datePublished": "2022-06-08T12:41:57+05:30",
+  "dateModified": "2022-06-08T12:41:57+05:30",
+  "author":{
+    "@type": "Person",
+    "name": "Anand"
+  },
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://0art0.github.io/lambda-cube/posts/formalising-gardams-disproof-of-kaplanskys-unit-conjecture/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "λ-cube",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://0art0.github.io/lambda-cube/favicon.ico"
+    }
+  }
+}
+</script>
+</head>
+
+<body class="" id="top">
+<script>
+    if (localStorage.getItem("pref-theme") === "dark") {
+        document.body.classList.add('dark');
+    } else if (localStorage.getItem("pref-theme") === "light") {
+        document.body.classList.remove('dark')
+    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.body.classList.add('dark');
+    }
+
+</script>
+
+<header class="header">
+    <nav class="nav">
+        <div class="logo">
+            <a href="https://0art0.github.io/lambda-cube" accesskey="h" title="λ-cube (Alt + H)">λ-cube</a>
+            <div class="logo-switches">
+                <button id="theme-toggle" accesskey="t" title="(Alt + T)">
+                    <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <ul id="menu">
+        </ul>
+    </nav>
+</header>
+<main class="main">
+
+<article class="post-single">
+  <header class="post-header">
+    <div class="breadcrumbs"><a href="https://0art0.github.io/lambda-cube">Home</a>&nbsp;»&nbsp;<a href="https://0art0.github.io/lambda-cube/posts/">Posts</a></div>
+    <h1 class="post-title">
+      Formalising Gardam&#39;s disproof of Kaplansky&#39;s Unit Conjecture<sup><span class="entry-isdraft">&nbsp;&nbsp;[draft]</span></sup>
+    </h1>
+    <div class="post-meta"><span title='2022-06-08 12:41:57 +0530 IST'>June 8, 2022</span>&nbsp;·&nbsp;2 min&nbsp;·&nbsp;Anand&nbsp;|&nbsp;<a href="https://github.com/0art0/lambda-cube/tree/main/docs/posts/posts/formalising-gardam%27s-disproof-of-kaplansky%27s-unit-conjecture.org" rel="noopener noreferrer" target="_blank">Suggest changes</a>
+
+</div>
+  </header> 
+
+  <div class="post-content">
+<div id="outline-container-headline-1" class="outline-2">
+<h2 id="headline-1">
+The Unit Conjecture
+</h2>
+<div id="outline-text-headline-1" class="outline-text-2">
+<p>
+The <a href="https://en.wikipedia.org/wiki/Kaplansky%27s_conjectures#Group_rings">Unit Conjecture</a> is a fundamental and well-known question about group rings that goes back to Graham Higman and Irving Kaplansky in the mid-twentieth century. It is a part of a collection of several conjectures posed by Kaplansky - most notably the <strong>Zero-divisor conjecture</strong> and the <strong>Idempotent conjecture</strong>. These are collectively known as <a href="https://en.wikipedia.org/wiki/Kaplansky&#39;s_conjectures">Kaplansky&#39;s conjectures</a>.</p>
+<div id="outline-container-headline-2" class="outline-3">
+<h3 id="headline-2">
+The statement
+</h3>
+<div id="outline-text-headline-2" class="outline-text-3">
+<p>
+Consider a field $K$ and a group $G$. In the <a href="https://en.wikipedia.org/wiki/Group_ring">group ring</a> $K[G]$, the elements of the form $k \cdot g$, where $k \in K \backslash \{0\}$ and $g \in G$, are clearly invertible - with the inverse being $k^{-1} \cdot g^{-1}$. These are known as the <strong>trivial units</strong> of the group ring $K[G]$.</p>
+<p>
+Furthermore, suppose now that the group $G$ is torsion-free, i.e., there are no elements of finite order other than the identity element. Then the Unit Conjecture states</p>
+<blockquote>
+<p>The only units in the group ring $K[G]$, where $K$ is a field and $G$ is a torsion-free group, are the trivial units.</p>
+</blockquote>
+</div>
+</div>
+<div id="outline-container-headline-3" class="outline-3">
+<h3 id="headline-3">
+Gardam&#39;s disproof
+</h3>
+<div id="outline-text-headline-3" class="outline-text-3">
+<p>
+In 2021, Giles Gardam finally settled the Unit conjecture in the negative. The proof was constructive, in the sense that Gardam provided an explicit field ($\mathbb{F}_{2$}, the finite field on two elements) and a torsion-free group (the <strong>Promislow</strong> or <strong>Hantzsche-Wendt</strong> group, denoted $P$), along with two non-trivial elements that are inverses of each other.</p>
+</div>
+</div>
+<div id="outline-container-headline-4" class="outline-3">
+<h3 id="headline-4">
+Formalising Gardam&#39;s disproof
+</h3>
+<div id="outline-text-headline-4" class="outline-text-3">
+<p>
+A complete formal proof of Gardam&#39;s disproof would involve two broad components:</p>
+<ul>
+<li>A proof that the group $P$ is torsion-free</li>
+<li>A proof that the given elements multiply to one.</li>
+</ul>
+<p>This is an interesting target for formalisation not only because it is an important mathematical result and is self-contained, but also because formalising this requires a blend of proofs and computation.</p>
+<p>
+Siddhartha Gadgil and I recently <a href="http://math.iisc.ac.in/~gadgil/unit_conjecture/GardamTheorem.html">formalised</a> this result in <code class="verbatim">Lean4</code>, the latest release of the Lean theorem prover that is designed from the ground up as both a programming language as well as a theorem prover.</p>
+<p>
+A detailed account of the formalisation is available on <a href="https://siddhartha-gadgil.github.io/automating-mathematics/posts/formalizing-gardam-disproof-kaplansky-conjecture/.">Siddhartha Gadgil&#39;s blog</a>. This post will explore some of the design choices we made in our formalisation.</p>
+<ul>
+<li></li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+
+
+  </div>
+
+  <footer class="post-footer">
+    <ul class="post-tags">
+      <li><a href="https://0art0.github.io/lambda-cube/tags/maths/">maths</a></li>
+      <li><a href="https://0art0.github.io/lambda-cube/tags/lean4/">lean4</a></li>
+    </ul>
+<nav class="paginav">
+  <a class="prev" href="https://0art0.github.io/lambda-cube/posts/solving-equations-in-abelian-groups/">
+    <span class="title">« Prev</span>
+    <br>
+    <span>Solving equations in Abelian groups</span>
+  </a>
+  <a class="next" href="https://0art0.github.io/lambda-cube/posts/a-category-theoretic-definition-of-a-group-ring/">
+    <span class="title">Next »</span>
+    <br>
+    <span>A category-theoretic description of a group ring</span>
+  </a>
+</nav>
+
+  </footer>
+</article>
+    </main>
+    
+<footer class="footer">
+    <span>&copy; 2022 <a href="https://0art0.github.io/lambda-cube">λ-cube</a></span>
+    <span>
+        Powered by
+        <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &
+        <a href="https://github.com/adityatelange/hugo-PaperMod/" rel="noopener" target="_blank">PaperMod</a>
+    </span>
+</footer>
+<a href="#top" aria-label="go to top" title="Go to Top (Alt + G)" class="top-link" id="top-link" accesskey="g">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentColor">
+        <path d="M12 6H0l6-6z" />
+    </svg>
+</a>
+
+<script>
+    let menu = document.getElementById('menu')
+    if (menu) {
+        menu.scrollLeft = localStorage.getItem("menu-scroll-position");
+        menu.onscroll = function () {
+            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+        }
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            var id = this.getAttribute("href").substr(1);
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
+                    behavior: "smooth"
+                });
+            } else {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
+            }
+            if (id === "top") {
+                history.replaceState(null, null, " ");
+            } else {
+                history.pushState(null, null, `#${id}`);
+            }
+        });
+    });
+
+</script>
+<script>
+    var mybutton = document.getElementById("top-link");
+    window.onscroll = function () {
+        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
+            mybutton.style.visibility = "visible";
+            mybutton.style.opacity = "1";
+        } else {
+            mybutton.style.visibility = "hidden";
+            mybutton.style.opacity = "0";
+        }
+    };
+
+</script>
+<script>
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+        if (document.body.className.includes("dark")) {
+            document.body.classList.remove('dark');
+            localStorage.setItem("pref-theme", 'light');
+        } else {
+            document.body.classList.add('dark');
+            localStorage.setItem("pref-theme", 'dark');
+        }
+    })
+
+</script>
+<script>
+    document.querySelectorAll('pre > code').forEach((codeblock) => {
+        const container = codeblock.parentNode.parentNode;
+
+        const copybutton = document.createElement('button');
+        copybutton.classList.add('copy-code');
+        copybutton.innerHTML = 'copy';
+
+        function copyingDone() {
+            copybutton.innerHTML = 'copied!';
+            setTimeout(() => {
+                copybutton.innerHTML = 'copy';
+            }, 2000);
+        }
+
+        copybutton.addEventListener('click', (cb) => {
+            if ('clipboard' in navigator) {
+                navigator.clipboard.writeText(codeblock.textContent);
+                copyingDone();
+                return;
+            }
+
+            const range = document.createRange();
+            range.selectNodeContents(codeblock);
+            const selection = window.getSelection();
+            selection.removeAllRanges();
+            selection.addRange(range);
+            try {
+                document.execCommand('copy');
+                copyingDone();
+            } catch (e) { };
+            selection.removeRange(range);
+        });
+
+        if (container.classList.contains("highlight")) {
+            container.appendChild(copybutton);
+        } else if (container.parentNode.firstChild == container) {
+            
+        } else if (codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.nodeName == "TABLE") {
+            
+            codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.appendChild(copybutton);
+        } else {
+            
+            codeblock.parentNode.appendChild(copybutton);
+        }
+    });
+</script>
+</body>
+
+</html>
