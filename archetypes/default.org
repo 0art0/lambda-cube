@@ -1,6 +1,8 @@
 #+TITLE: {{ replace .Name "-" " " | title }}
 #+AUTHOR: Anand
 #+DATE: {{ .Date }}
+#+TAGS[]: 
+#+MATH: true
 #+DRAFT: true
 
 

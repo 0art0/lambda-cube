@@ -25,7 +25,7 @@ params:
   homeInfoParams:
     Title: "λ-cube"
     Content: >
-      Welcome to **λ-cube**, a blog on mathematics, foundations, computer science, theorem provers and more." 
+      Welcome to **λ-cube**, a blog on mathematics, foundations, computer science, theorem provers and more. 
 
   socialIcons:
     - name: github
