@@ -1,4 +1,5 @@
-#+title: "A category-theoretic description of a group ring"
+#+title: A category-theoretic description of a group ring
+#+tags[]: category-theory
 #+date: 2022-04-26T23:11:03+05:30
 #+draft: false 
 
