@@ -1,0 +1,38 @@
+#+TITLE: Formalising Gardam's disproof of Kaplansky's Unit Conjecture
+#+AUTHOR: Anand
+#+DATE: 2022-06-08T12:41:57+05:30
+#+TAGS[]: maths lean4
+#+MATH: true
+#+DRAFT: true
+
+* The Unit Conjecture
+
+The [[https://en.wikipedia.org/wiki/Kaplansky%27s_conjectures#Group_rings][Unit Conjecture]] is a fundamental and well-known question about group rings that goes back to Graham Higman and Irving Kaplansky in the mid-twentieth century. It is a part of a collection of several conjectures posed by Kaplansky - most notably the *Zero-divisor conjecture* and the *Idempotent conjecture*. These are collectively known as [[https://en.wikipedia.org/wiki/Kaplansky's_conjectures][Kaplansky's conjectures]].
+
+** The statement
+
+Consider a field $K$ and a group $G$. In the [[https://en.wikipedia.org/wiki/Group_ring][group ring]] $K[G]$, the elements of the form $k \cdot g$, where $k \in K \backslash \{0\}$ and $g \in G$, are clearly invertible - with the inverse being $k^{-1} \cdot g^{-1}$. These are known as the *trivial units* of the group ring $K[G]$.
+
+Furthermore, suppose now that the group $G$ is torsion-free, i.e., there are no elements of finite order other than the identity element. Then the Unit Conjecture states
+
+#+begin_quote
+The only units in the group ring $K[G]$, where $K$ is a field and $G$ is a torsion-free group, are the trivial units.
+#+end_quote
+
+** Gardam's disproof
+
+In 2021, Giles Gardam finally settled the Unit conjecture in the negative. The proof was constructive, in the sense that Gardam provided an explicit field ($\mathbb{F}_{2$}, the finite field on two elements) and a torsion-free group (the *Promislow* or *Hantzsche-Wendt* group, denoted $P$), along with two non-trivial elements that are inverses of each other.
+
+** Formalising Gardam's disproof
+
+A complete formal proof of Gardam's disproof would involve two broad components:
+- A proof that the group $P$ is torsion-free
+- A proof that the given elements multiply to one.
+
+This is an interesting target for formalisation not only because it is an important mathematical result and is self-contained, but also because formalising this requires a blend of proofs and computation.
+
+Siddhartha Gadgil and I recently [[http://math.iisc.ac.in/~gadgil/unit_conjecture/GardamTheorem.html][formalised]] this result in =Lean4=, the latest release of the Lean theorem prover that is designed from the ground up as both a programming language as well as a theorem prover.
+
+A detailed account of the formalisation is available on [[https://siddhartha-gadgil.github.io/automating-mathematics/posts/formalizing-gardam-disproof-kaplansky-conjecture/.][Siddhartha Gadgil's blog]]. This post will explore some of the design choices we made in our formalisation.
+
+*
