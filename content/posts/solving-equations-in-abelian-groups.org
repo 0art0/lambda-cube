@@ -10,9 +10,9 @@ Consider the problem of deciding whether of deciding whether an equation, such a
 
 $$ (x + y) + z + -(x + z) = y$$
 
-is true in all Abelian groups (this means that for any Abelian group $A$, and for any chosen values $x$, $y$ and $z$ in $A$, the equation should be true).
+is true in all Abelian groups. This means that for any Abelian group $A$, and for any chosen values $x$, $y$ and $z$ in $A$, the equation should be true.
 
-This equality problem is hardly a problem, for humans atleast - by "expanding", "cancelling", "rearranging" and "grouping", anyone well-versed in high-school algebra can solve an arbitrary instance of this problem without much thought.
+This hardly poses a problem, for humans atleast - by "expanding", "cancelling", "rearranging" and "grouping", anyone well-versed in high-school algebra can solve an arbitrary instance of this problem without much thought.
 
 However, this task is not trivial to carry out on a computer if one requires a full and rigorous proof in the end. The problem of deciding whether an equation holds in all Abelian groups is the same as deciding whether the equation can be deduced from the axioms for Abelian groups, and it is in the latter form that the task is usually presented to the computer.
 
@@ -56,7 +56,7 @@ $$(a + b) + c - (a + c) = b$$
 
 The solution in the worked example can be directly generalised to work for any equation.
 
-For an equation involving $n$ variables, consider the free Abelian group on $n$ generators. Verifying the equation for the $n$ generators is a matter of direct computation. This is enough to prove it for all Abelian groups, since for any Abelian group $A$ and $n$ elements $a_{1}, a_{2}, \ldots, a_{n}$ in $A$, there is a homomorphism sending the basis of the free group to these elements, and any equation involving only the Abelian group operations (addition, negation, subtraction) is preserved under homomorphisms.
+For an equation involving $n$ variables, consider the free Abelian group on $n$ generators. Verifying the equation for the $n$ generators is a matter of direct computation. This is enough to prove it for all Abelian groups, since for any Abelian group $A$ and $n$ elements $a_{1}, a_{2}, \ldots, a_{n}$ in $A$, there is a homomorphism sending the generators of the free group to these elements, and any equation involving only the Abelian group operations (addition, negation, subtraction) is preserved under homomorphisms.
 
 ** Remarks
 
