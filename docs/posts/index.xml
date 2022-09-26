@@ -14,8 +14,8 @@
       <guid>https://0art0.github.io/lambda-cube/posts/solving-equations-in-abelian-groups/</guid>
       <description>A general equality problem for Abelian groups Consider the problem of deciding whether of deciding whether an equation, such as
 $$ (x + y) + z + -(x + z) = y$$
-is true in all Abelian groups (this means that for any Abelian group $A$, and for any chosen values $x$, $y$ and $z$ in $A$, the equation should be true).
-This equality problem is hardly a problem, for humans atleast - by &amp;#34;expanding&amp;#34;, &amp;#34;cancelling&amp;#34;, &amp;#34;rearranging&amp;#34; and &amp;#34;grouping&amp;#34;, anyone well-versed in high-school algebra can solve an arbitrary instance of this problem without much thought.</description>
+is true in all Abelian groups. This means that for any Abelian group $A$, and for any chosen values $x$, $y$ and $z$ in $A$, the equation should be true.
+This hardly poses a problem, for humans atleast - by &amp;#34;expanding&amp;#34;, &amp;#34;cancelling&amp;#34;, &amp;#34;rearranging&amp;#34; and &amp;#34;grouping&amp;#34;, anyone well-versed in high-school algebra can solve an arbitrary instance of this problem without much thought.</description>
     </item>
     
     <item>
@@ -45,6 +45,15 @@ For example, group rings - the subject of this post - can be described in two ve
       
       <guid>https://0art0.github.io/lambda-cube/posts/function-finder-tactic/</guid>
       <description>Introduction The Lean theorem prover is one of several that supports constructing proofs using tactics - commands that allow users to build up proofs step-by-step interactively at a high level of abstraction, usually interspersed with automation (for a demonstration of tactics and an introduction to Lean in general, consult the Natural Number Game). One of the appealing aspects of Lean, especially Lean4, is that there is a robust framework in place for users to write custom tactics within the language, making Lean its own metaprogramming language.</description>
+    </item>
+    
+    <item>
+      <title>Solving The Word Problem In Abelian Groups</title>
+      <link>https://0art0.github.io/lambda-cube/posts/solving-the-word-problem-in-abelian-groups/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://0art0.github.io/lambda-cube/posts/solving-the-word-problem-in-abelian-groups/</guid>
+      <description></description>
     </item>
     
   </channel>
