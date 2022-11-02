@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="en" dir="auto">
+
+<head><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="index, follow">
+<title>Combinatornithology | λ-cube</title>
+<meta name="keywords" content="maths, logic, lean">
+<meta name="description" content="Combinatory logic Combinatory logic is a simplified model of computation based on combinators - functions that take in other functions and combine them using only function application. It was introduced by Moses Schönfinkel and rediscovered by Haskell Curry. Interestingly, combinatory logic is free of variables - every combinator can be expressed in terms of just two special combinators known as $S$ and $K$. It is possible to encode natural numbers and intuitionistic propositional logic in the language of combinators.">
+<meta name="author" content="Anand">
+<link rel="canonical" href="https://0art0.github.io/lambda-cube/posts/combinatornithology/">
+<link crossorigin="anonymous" href="/lambda-cube/assets/css/stylesheet.bc1149f4a72aa4858d3a9f71462f75e5884ffe8073ea9d6d5761d5663d651e20.css" integrity="sha256-vBFJ9KcqpIWNOp9xRi915YhP/oBz6p1tV2HVZj1lHiA=" rel="preload stylesheet" as="style">
+<script defer crossorigin="anonymous" src="/lambda-cube/assets/js/highlight.f413e19d0714851f6474e7ee9632408e58ac146fbdbe62747134bea2fa3415e0.js" integrity="sha256-9BPhnQcUhR9kdOfuljJAjlisFG&#43;9vmJ0cTS&#43;ovo0FeA="
+    onload="hljs.initHighlightingOnLoad();"></script>
+<link rel="icon" href="https://0art0.github.io/lambda-cube/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="https://0art0.github.io/lambda-cube/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="https://0art0.github.io/lambda-cube/favicon-32x32.png">
+<link rel="apple-touch-icon" href="https://0art0.github.io/lambda-cube/apple-touch-icon.png">
+<link rel="mask-icon" href="https://0art0.github.io/lambda-cube/safari-pinned-tab.svg">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<noscript>
+    <style>
+        #theme-toggle,
+        .top-link {
+            display: none;
+        }
+
+    </style>
+    <style>
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --theme: rgb(29, 30, 32);
+                --entry: rgb(46, 46, 51);
+                --primary: rgb(218, 218, 219);
+                --secondary: rgb(155, 156, 157);
+                --tertiary: rgb(65, 66, 68);
+                --content: rgb(196, 196, 197);
+                --hljs-bg: rgb(46, 46, 51);
+                --code-bg: rgb(55, 56, 62);
+                --border: rgb(51, 51, 51);
+            }
+
+            .list {
+                background: var(--theme);
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-track {
+                background: 0 0;
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-thumb {
+                border-color: var(--theme);
+            }
+        }
+
+    </style>
+</noscript>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.2/dist/katex.min.css" integrity="sha384-bYdxxUwYipFNohQlHt0bjN/LCpueqWz13HufFEV1SUatKs1cm4L6fFgCi1jT643X" crossorigin="anonymous">
+
+
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.2/dist/katex.min.js" integrity="sha384-Qsn9KnoKISj6dI8g7p1HBlNpVx0I8p1SvlwOldgi3IorMle61nQy4zEahWYtljaz" crossorigin="anonymous"></script>
+
+
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.2/dist/contrib/auto-render.min.js" integrity="sha384-+VBxd3r6XgURycqtZ117nYw44OOcIax56Z4dCRWbxyPt0Koah1uHoK0o4+/RRE05" crossorigin="anonymous"
+        onload="renderMathInElement(document.body);"></script>
+
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+    renderMathInElement(document.body, {
+        delimiters: [
+            {left: "$$", right: "$$", display: true},
+            {left: "$", right: "$", display: false}
+        ]
+    });
+});
+</script>
+
+
+<meta property="og:title" content="Combinatornithology" />
+<meta property="og:description" content="Combinatory logic Combinatory logic is a simplified model of computation based on combinators - functions that take in other functions and combine them using only function application. It was introduced by Moses Schönfinkel and rediscovered by Haskell Curry. Interestingly, combinatory logic is free of variables - every combinator can be expressed in terms of just two special combinators known as $S$ and $K$. It is possible to encode natural numbers and intuitionistic propositional logic in the language of combinators." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://0art0.github.io/lambda-cube/posts/combinatornithology/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2022-11-02T11:24:10+05:30" />
+<meta property="article:modified_time" content="2022-11-02T11:24:10+05:30" />
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Combinatornithology"/>
+<meta name="twitter:description" content="Combinatory logic Combinatory logic is a simplified model of computation based on combinators - functions that take in other functions and combine them using only function application. It was introduced by Moses Schönfinkel and rediscovered by Haskell Curry. Interestingly, combinatory logic is free of variables - every combinator can be expressed in terms of just two special combinators known as $S$ and $K$. It is possible to encode natural numbers and intuitionistic propositional logic in the language of combinators."/>
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [, 
+    {
+      "@type": "ListItem",
+      "position":  2 ,
+      "name": "Posts",
+      "item": "https://0art0.github.io/lambda-cube/posts/"
+    }, 
+    {
+      "@type": "ListItem",
+      "position":  3 ,
+      "name": "Combinatornithology",
+      "item": "https://0art0.github.io/lambda-cube/posts/combinatornithology/"
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "Combinatornithology",
+  "name": "Combinatornithology",
+  "description": "Combinatory logic Combinatory logic is a simplified model of computation based on combinators - functions that take in other functions and combine them using only function application. It was introduced by Moses Schönfinkel and rediscovered by Haskell Curry. Interestingly, combinatory logic is free of variables - every combinator can be expressed in terms of just two special combinators known as $S$ and $K$. It is possible to encode natural numbers and intuitionistic propositional logic in the language of combinators.",
+  "keywords": [
+    "maths", "logic", "lean"
+  ],
+  "articleBody": " Combinatory logic Combinatory logic is a simplified model of computation based on combinators - functions that take in other functions and combine them using only function application. It was introduced by Moses Schönfinkel and rediscovered by Haskell Curry. Interestingly, combinatory logic is free of variables - every combinator can be expressed in terms of just two special combinators known as $S$ and $K$. It is possible to encode natural numbers and intuitionistic propositional logic in the language of combinators.\nTo Mock a Mockingbird Raymond Smullyan has written a delightful puzzle book called To Mock a Mockingbird that introduces the subject of combinatory logic through a series of puzzles and riddles woven together in a storyline spread across several chapters. The story is set in an enchanted forest inhabited by several talking birds. If a bird in the forest hears the name of any bird, it responds by calling out the name of some bird in the forest. One of the inhabitants of the forest, the mockingbird, imitates other birds hearing themselves. The article To dissect a Mockingbird by David Keenan provides a graphical way to visualise the bird calls.\nCombinatornithology Inspired by the book To Mock a Mockingbird and the Natural Number Game of the Xena Project, I created Combinatornithology (a bad pun on combinatory logic and ornithology), an introduction to combinatory logic in the Lean theorem prover. The game is available here.\n",
+  "wordCount" : "233",
+  "inLanguage": "en",
+  "datePublished": "2022-11-02T11:24:10+05:30",
+  "dateModified": "2022-11-02T11:24:10+05:30",
+  "author":{
+    "@type": "Person",
+    "name": "Anand"
+  },
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://0art0.github.io/lambda-cube/posts/combinatornithology/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "λ-cube",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://0art0.github.io/lambda-cube/favicon.ico"
+    }
+  }
+}
+</script>
+</head>
+
+<body class="" id="top">
+<script>
+    if (localStorage.getItem("pref-theme") === "dark") {
+        document.body.classList.add('dark');
+    } else if (localStorage.getItem("pref-theme") === "light") {
+        document.body.classList.remove('dark')
+    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.body.classList.add('dark');
+    }
+
+</script>
+
+<header class="header">
+    <nav class="nav">
+        <div class="logo">
+            <a href="https://0art0.github.io/lambda-cube" accesskey="h" title="λ-cube (Alt + H)">λ-cube</a>
+            <div class="logo-switches">
+                <button id="theme-toggle" accesskey="t" title="(Alt + T)">
+                    <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <ul id="menu">
+        </ul>
+    </nav>
+</header>
+<main class="main">
+
+<article class="post-single">
+  <header class="post-header">
+    <div class="breadcrumbs"><a href="https://0art0.github.io/lambda-cube">Home</a>&nbsp;»&nbsp;<a href="https://0art0.github.io/lambda-cube/posts/">Posts</a></div>
+    <h1 class="post-title">
+      Combinatornithology
+    </h1>
+    <div class="post-meta"><span title='2022-11-02 11:24:10 +0530 IST'>November 2, 2022</span>&nbsp;·&nbsp;2 min&nbsp;·&nbsp;Anand&nbsp;|&nbsp;<a href="https://github.com/0art0/lambda-cube/tree/main/docs/posts/posts/combinatornithology.org" rel="noopener noreferrer" target="_blank">Suggest changes</a>
+
+</div>
+  </header> 
+
+  <div class="post-content">
+<div id="outline-container-headline-1" class="outline-2">
+<h2 id="headline-1">
+Combinatory logic
+</h2>
+<div id="outline-text-headline-1" class="outline-text-2">
+<p>
+<a href="https://en.wikipedia.org/wiki/Combinatory_logic">Combinatory logic</a> is a simplified model of computation based on <em>combinators</em> - functions that take in other functions and combine them using only function application. It was introduced by Moses Schönfinkel and rediscovered by Haskell Curry. Interestingly, combinatory logic is free of variables - every combinator can be expressed in terms of just two special combinators known as <a href="https://en.wikipedia.org/wiki/SKI_combinator_calculus">$S$ and $K$</a>. It is possible to encode natural numbers and intuitionistic propositional logic in the language of combinators.</p>
+</div>
+</div>
+<div id="outline-container-headline-2" class="outline-2">
+<h2 id="headline-2">
+To Mock a Mockingbird
+</h2>
+<div id="outline-text-headline-2" class="outline-text-2">
+<p>
+Raymond Smullyan has written a delightful puzzle book called <a href="https://en.wikipedia.org/wiki/To_Mock_a_Mockingbird">To Mock a Mockingbird</a> that introduces the subject of combinatory logic through a series of puzzles and riddles woven together in a storyline spread across several chapters. The story is set in an enchanted forest inhabited by several talking birds. If a bird in the forest hears the name of any bird, it responds by calling out the name of some bird in the forest. One of the inhabitants of the forest, the <em>mockingbird</em>, imitates other birds hearing themselves. The article <a href="https://dkeenan.com/Lambda/index.htm">To dissect a Mockingbird by David Keenan</a> provides a graphical way to visualise the bird calls.</p>
+</div>
+</div>
+<div id="outline-container-headline-3" class="outline-2">
+<h2 id="headline-3">
+Combinatornithology
+</h2>
+<div id="outline-text-headline-3" class="outline-text-2">
+<p>
+Inspired by the book <em>To Mock a Mockingbird</em> and the <a href="https://www.ma.imperial.ac.uk/~buzzard/xena/natural_number_game/">Natural Number Game of the Xena Project</a>, I created <em>Combinatornithology</em> (a bad pun on combinatory logic and ornithology), an introduction to combinatory logic in the Lean theorem prover. The game is available <a href="https://github.com/0art0/combinatornithology">here</a>.</p>
+</div>
+</div>
+
+
+  </div>
+
+  <footer class="post-footer">
+    <ul class="post-tags">
+      <li><a href="https://0art0.github.io/lambda-cube/tags/maths/">maths</a></li>
+      <li><a href="https://0art0.github.io/lambda-cube/tags/logic/">logic</a></li>
+      <li><a href="https://0art0.github.io/lambda-cube/tags/lean/">lean</a></li>
+    </ul>
+<nav class="paginav">
+  <a class="prev" href="https://0art0.github.io/lambda-cube/posts/towers-of-hanoi/">
+    <span class="title">« Prev</span>
+    <br>
+    <span>Towers of Hanoi</span>
+  </a>
+  <a class="next" href="https://0art0.github.io/lambda-cube/posts/solving-equations-in-abelian-groups/">
+    <span class="title">Next »</span>
+    <br>
+    <span>Solving equations in Abelian groups</span>
+  </a>
+</nav>
+
+  </footer>
+</article>
+    </main>
+    
+<footer class="footer">
+    <span>&copy; 2022 <a href="https://0art0.github.io/lambda-cube">λ-cube</a></span>
+    <span>
+        Powered by
+        <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &
+        <a href="https://github.com/adityatelange/hugo-PaperMod/" rel="noopener" target="_blank">PaperMod</a>
+    </span>
+</footer>
+<a href="#top" aria-label="go to top" title="Go to Top (Alt + G)" class="top-link" id="top-link" accesskey="g">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentColor">
+        <path d="M12 6H0l6-6z" />
+    </svg>
+</a>
+
+<script>
+    let menu = document.getElementById('menu')
+    if (menu) {
+        menu.scrollLeft = localStorage.getItem("menu-scroll-position");
+        menu.onscroll = function () {
+            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+        }
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            var id = this.getAttribute("href").substr(1);
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
+                    behavior: "smooth"
+                });
+            } else {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
+            }
+            if (id === "top") {
+                history.replaceState(null, null, " ");
+            } else {
+                history.pushState(null, null, `#${id}`);
+            }
+        });
+    });
+
+</script>
+<script>
+    var mybutton = document.getElementById("top-link");
+    window.onscroll = function () {
+        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
+            mybutton.style.visibility = "visible";
+            mybutton.style.opacity = "1";
+        } else {
+            mybutton.style.visibility = "hidden";
+            mybutton.style.opacity = "0";
+        }
+    };
+
+</script>
+<script>
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+        if (document.body.className.includes("dark")) {
+            document.body.classList.remove('dark');
+            localStorage.setItem("pref-theme", 'light');
+        } else {
+            document.body.classList.add('dark');
+            localStorage.setItem("pref-theme", 'dark');
+        }
+    })
+
+</script>
+<script>
+    document.querySelectorAll('pre > code').forEach((codeblock) => {
+        const container = codeblock.parentNode.parentNode;
+
+        const copybutton = document.createElement('button');
+        copybutton.classList.add('copy-code');
+        copybutton.innerHTML = 'copy';
+
+        function copyingDone() {
+            copybutton.innerHTML = 'copied!';
+            setTimeout(() => {
+                copybutton.innerHTML = 'copy';
+            }, 2000);
+        }
+
+        copybutton.addEventListener('click', (cb) => {
+            if ('clipboard' in navigator) {
+                navigator.clipboard.writeText(codeblock.textContent);
+                copyingDone();
+                return;
+            }
+
+            const range = document.createRange();
+            range.selectNodeContents(codeblock);
+            const selection = window.getSelection();
+            selection.removeAllRanges();
+            selection.addRange(range);
+            try {
+                document.execCommand('copy');
+                copyingDone();
+            } catch (e) { };
+            selection.removeRange(range);
+        });
+
+        if (container.classList.contains("highlight")) {
+            container.appendChild(copybutton);
+        } else if (container.parentNode.firstChild == container) {
+            
+        } else if (codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.nodeName == "TABLE") {
+            
+            codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.appendChild(copybutton);
+        } else {
+            
+            codeblock.parentNode.appendChild(copybutton);
+        }
+    });
+</script>
+</body>
+
+</html>

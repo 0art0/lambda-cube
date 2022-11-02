@@ -5,7 +5,16 @@
     <link>https://0art0.github.io/lambda-cube/tags/maths/</link>
     <description>Recent content in maths on λ-cube</description>
     <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Sun, 18 Sep 2022 16:30:00 +0530</lastBuildDate><atom:link href="https://0art0.github.io/lambda-cube/tags/maths/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 02 Nov 2022 11:24:10 +0530</lastBuildDate><atom:link href="https://0art0.github.io/lambda-cube/tags/maths/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Combinatornithology</title>
+      <link>https://0art0.github.io/lambda-cube/posts/combinatornithology/</link>
+      <pubDate>Wed, 02 Nov 2022 11:24:10 +0530</pubDate>
+      
+      <guid>https://0art0.github.io/lambda-cube/posts/combinatornithology/</guid>
+      <description>Combinatory logic Combinatory logic is a simplified model of computation based on combinators - functions that take in other functions and combine them using only function application. It was introduced by Moses Schönfinkel and rediscovered by Haskell Curry. Interestingly, combinatory logic is free of variables - every combinator can be expressed in terms of just two special combinators known as $S$ and $K$. It is possible to encode natural numbers and intuitionistic propositional logic in the language of combinators.</description>
+    </item>
+    
     <item>
       <title>Solving equations in Abelian groups</title>
       <link>https://0art0.github.io/lambda-cube/posts/solving-equations-in-abelian-groups/</link>

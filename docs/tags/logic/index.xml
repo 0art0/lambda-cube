@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>logic on λ-cube</title>
+    <link>https://0art0.github.io/lambda-cube/tags/logic/</link>
+    <description>Recent content in logic on λ-cube</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <lastBuildDate>Wed, 02 Nov 2022 11:24:10 +0530</lastBuildDate><atom:link href="https://0art0.github.io/lambda-cube/tags/logic/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Combinatornithology</title>
+      <link>https://0art0.github.io/lambda-cube/posts/combinatornithology/</link>
+      <pubDate>Wed, 02 Nov 2022 11:24:10 +0530</pubDate>
+      
+      <guid>https://0art0.github.io/lambda-cube/posts/combinatornithology/</guid>
+      <description>Combinatory logic Combinatory logic is a simplified model of computation based on combinators - functions that take in other functions and combine them using only function application. It was introduced by Moses Schönfinkel and rediscovered by Haskell Curry. Interestingly, combinatory logic is free of variables - every combinator can be expressed in terms of just two special combinators known as $S$ and $K$. It is possible to encode natural numbers and intuitionistic propositional logic in the language of combinators.</description>
+    </item>
+    
+  </channel>
+</rss>

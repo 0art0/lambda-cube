@@ -123,8 +123,8 @@ The statement Consider a field $K$ and a group $G$. In the group ring $K[G]$, th
   "keywords": [
     "maths", "lean4"
   ],
-  "articleBody": " The Unit Conjecture The Unit Conjecture is a fundamental and well-known question about group rings that goes back to Graham Higman and Irving Kaplansky in the mid-twentieth century. It is a part of a collection of several conjectures posed by Kaplansky - most notably the Zero-divisor conjecture and the Idempotent conjecture. These are collectively known as Kaplansky's conjectures.\nThe statement Consider a field $K$ and a group $G$. In the group ring $K[G]$, the elements of the form $k \\cdot g$, where $k \\in K \\backslash \\{0\\}$ and $g \\in G$, are clearly invertible - with the inverse being $k^{-1} \\cdot g^{-1}$. These are known as the trivial units of the group ring $K[G]$.\nFurthermore, suppose now that the group $G$ is torsion-free, i.e., there are no elements of finite order other than the identity element. Then the Unit Conjecture states\nThe only units in the group ring $K[G]$, where $K$ is a field and $G$ is a torsion-free group, are the trivial units.\nGardam's disproof In 2021, Giles Gardam finally settled the Unit conjecture in the negative. The proof was constructive, in the sense that Gardam provided an explicit field ($\\mathbb{F}_{2$}, the finite field on two elements) and a torsion-free group (the Promislow or Hantzsche-Wendt group, denoted $P$), along with two non-trivial elements that are inverses of each other.\nFormalising Gardam's disproof A complete formal proof of Gardam's disproof would involve two broad components:\nA proof that the group $P$ is torsion-free A proof that the given elements multiply to one. This is an interesting target for formalisation not only because it is an important mathematical result and is self-contained, but also because formalising this requires a blend of proofs and computation.\nSiddhartha Gadgil and I recently formalised this result in Lean4, the latest release of the Lean theorem prover that is designed from the ground up as both a programming language as well as a theorem prover.\nA detailed account of the formalisation is available on Siddhartha Gadgil's blog. This post will explore some of the design choices we made in our formalisation.\n",
-  "wordCount" : "345",
+  "articleBody": " The Unit Conjecture The Unit Conjecture is a fundamental and well-known question about group rings that goes back to Graham Higman and Irving Kaplansky in the mid-twentieth century. It is a part of a collection of several conjectures posed by Kaplansky - most notably the Zero-divisor conjecture and the Idempotent conjecture. These are collectively known as Kaplansky's conjectures.\nThe statement Consider a field $K$ and a group $G$. In the group ring $K[G]$, the elements of the form $k \\cdot g$, where $k \\in K \\backslash \\{0\\}$ and $g \\in G$, are clearly invertible - with the inverse being $k^{-1} \\cdot g^{-1}$. These are known as the trivial units of the group ring $K[G]$.\nFurthermore, suppose now that the group $G$ is torsion-free, i.e., there are no elements of finite order other than the identity element. Then the Unit Conjecture states\nThe only units in the group ring $K[G]$, where $K$ is a field and $G$ is a torsion-free group, are the trivial units.\nGardam's disproof In 2021, Giles Gardam finally settled the Unit conjecture in the negative. The proof was constructive, in the sense that Gardam provided an explicit field ($\\mathbb{F}_{2$}, the finite field on two elements) and a torsion-free group (the Promislow or Hantzsche-Wendt group, denoted $P$), along with two non-trivial elements that are inverses of each other.\nFormalising Gardam's disproof A complete formal proof of Gardam's disproof would involve two broad components:\nA proof that the group $P$ is torsion-free A proof that the given elements multiply to one. This is an interesting target for formalisation not only because it is an important mathematical result and is self-contained, but also because formalising this requires a blend of proofs and computation.\nSiddhartha Gadgil and I recently formalised this result in Lean4, the latest release of the Lean theorem prover that is designed from the ground up as both a programming language as well as a theorem prover.\nA detailed account of the formalisation is available on Siddhartha Gadgil's blog. This post will explore some of the design choices we made in our formalisation.\nThe group $P$ Central to Gardam's counter-example is the group $P$, a virtually Abelian group with the presentation $\\langle a, b \\vert a^{-1}b^{2}a = b^{-2}, b^{-1}a^{2}b = a^{-2}\\rangle$. Earlier work by Promislow shows that $P$ is an example of a torsion-free group that does not satisfy the unique-product property, a purely combinatorial property of a group that is known to imply the unit conjecture for any group ring over that group.\nThe two components of the proof mentioned above deal with different aspects of the group $P$:\nthe first is a mathematical proof, which requires a detailed analysis of the structure of $P$ the second is a computation, which depends on algorithmic properties of $P$, such as being able to efficiently decide when two elements are equal The group $P$ admits several descriptions - algebraic, topological, as well as combinatorial. Given our dual requirements of computing and proving, the description of $P$ that was most suitable was as a Metabelian group.\nTODO Generators and relations TODO Isometries of $\\mathbb{Z}^{3}$ TODO Metabelian group ",
+  "wordCount" : "517",
   "inLanguage": "en",
   "datePublished": "2022-06-08T12:41:57+05:30",
   "dateModified": "2022-06-08T12:41:57+05:30",
@@ -199,7 +199,7 @@ The statement Consider a field $K$ and a group $G$. In the group ring $K[G]$, th
     <h1 class="post-title">
       Formalising Gardam&#39;s disproof of Kaplansky&#39;s Unit Conjecture<sup><span class="entry-isdraft">&nbsp;&nbsp;[draft]</span></sup>
     </h1>
-    <div class="post-meta"><span title='2022-06-08 12:41:57 +0530 IST'>June 8, 2022</span>&nbsp;·&nbsp;2 min&nbsp;·&nbsp;Anand&nbsp;|&nbsp;<a href="https://github.com/0art0/lambda-cube/tree/main/docs/posts/posts/formalising-gardam%27s-disproof-of-kaplansky%27s-unit-conjecture.org" rel="noopener noreferrer" target="_blank">Suggest changes</a>
+    <div class="post-meta"><span title='2022-06-08 12:41:57 +0530 IST'>June 8, 2022</span>&nbsp;·&nbsp;3 min&nbsp;·&nbsp;Anand&nbsp;|&nbsp;<a href="https://github.com/0art0/lambda-cube/tree/main/docs/posts/posts/formalising-gardam%27s-disproof-of-kaplansky%27s-unit-conjecture.org" rel="noopener noreferrer" target="_blank">Suggest changes</a>
 
 </div>
   </header> 
@@ -235,11 +235,13 @@ Gardam&#39;s disproof
 In 2021, Giles Gardam finally settled the Unit conjecture in the negative. The proof was constructive, in the sense that Gardam provided an explicit field ($\mathbb{F}_{2$}, the finite field on two elements) and a torsion-free group (the <strong>Promislow</strong> or <strong>Hantzsche-Wendt</strong> group, denoted $P$), along with two non-trivial elements that are inverses of each other.</p>
 </div>
 </div>
-<div id="outline-container-headline-4" class="outline-3">
-<h3 id="headline-4">
+</div>
+</div>
+<div id="outline-container-headline-4" class="outline-2">
+<h2 id="headline-4">
 Formalising Gardam&#39;s disproof
-</h3>
-<div id="outline-text-headline-4" class="outline-text-3">
+</h2>
+<div id="outline-text-headline-4" class="outline-text-2">
 <p>
 A complete formal proof of Gardam&#39;s disproof would involve two broad components:</p>
 <ul>
@@ -251,9 +253,38 @@ A complete formal proof of Gardam&#39;s disproof would involve two broad compone
 Siddhartha Gadgil and I recently <a href="http://math.iisc.ac.in/~gadgil/unit_conjecture/GardamTheorem.html">formalised</a> this result in <code class="verbatim">Lean4</code>, the latest release of the Lean theorem prover that is designed from the ground up as both a programming language as well as a theorem prover.</p>
 <p>
 A detailed account of the formalisation is available on <a href="https://siddhartha-gadgil.github.io/automating-mathematics/posts/formalizing-gardam-disproof-kaplansky-conjecture/.">Siddhartha Gadgil&#39;s blog</a>. This post will explore some of the design choices we made in our formalisation.</p>
+<div id="outline-container-headline-5" class="outline-4">
+<h4 id="headline-5">
+The group $P$
+</h4>
+<div id="outline-text-headline-5" class="outline-text-4">
+<p>
+Central to Gardam&#39;s counter-example is the group $P$, a virtually Abelian group with the presentation $\langle a, b \vert a^{-1}b^{2}a = b^{-2}, b^{-1}a^{2}b = a^{-2}\rangle$. Earlier work by Promislow shows that $P$ is an example of a torsion-free group that <em>does not</em> satisfy the unique-product property, a purely combinatorial property of a group that is known to imply the unit conjecture for any group ring over that group.</p>
+<p>
+The two components of the proof mentioned above deal with different aspects of the group $P$:</p>
 <ul>
-<li></li>
+<li>the first is a mathematical proof, which requires a detailed analysis of the <em>structure</em> of $P$</li>
+<li>the second is a computation, which depends on <em>algorithmic properties</em> of $P$, such as being able to efficiently decide when two elements are equal</li>
 </ul>
+<p>The group $P$ admits several descriptions - algebraic, topological, as well as combinatorial. Given our dual requirements of computing and proving, the description of $P$ that was most suitable was as a <em>Metabelian group</em>.</p>
+<div id="outline-container-headline-6" class="outline-5">
+<h5 id="headline-6">
+<span class="todo">TODO</span>
+Generators and relations
+</h5>
+</div>
+<div id="outline-container-headline-7" class="outline-5">
+<h5 id="headline-7">
+<span class="todo">TODO</span>
+Isometries of $\mathbb{Z}^{3}$
+</h5>
+</div>
+<div id="outline-container-headline-8" class="outline-5">
+<h5 id="headline-8">
+<span class="todo">TODO</span>
+Metabelian group
+</h5>
+</div>
 </div>
 </div>
 </div>
