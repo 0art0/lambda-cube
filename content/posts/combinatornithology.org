@@ -1,0 +1,18 @@
+#+TITLE: Combinatornithology
+#+AUTHOR: Anand
+#+DATE: 2022-11-02T11:24:10+05:30
+#+TAGS[]: maths logic lean
+#+MATH: true
+#+DRAFT: false
+
+* Combinatory logic
+
+[[https://en.wikipedia.org/wiki/Combinatory_logic][Combinatory logic]] is a simplified model of computation based on /combinators/ - functions that take in other functions and combine them using only function application. It was introduced by Moses Schönfinkel and rediscovered by Haskell Curry. Interestingly, combinatory logic is free of variables - every combinator can be expressed in terms of just two special combinators known as [[https://en.wikipedia.org/wiki/SKI_combinator_calculus][$S$ and $K$]]. It is possible to encode natural numbers and intuitionistic propositional logic in the language of combinators.
+
+* To Mock a Mockingbird
+
+Raymond Smullyan has written a delightful puzzle book called [[https://en.wikipedia.org/wiki/To_Mock_a_Mockingbird][To Mock a Mockingbird]] that introduces the subject of combinatory logic through a series of puzzles and riddles woven together in a storyline spread across several chapters. The story is set in an enchanted forest inhabited by several talking birds. If a bird in the forest hears the name of any bird, it responds by calling out the name of some bird in the forest. One of the inhabitants of the forest, the /mockingbird/, imitates other birds hearing themselves. The article [[https://dkeenan.com/Lambda/index.htm][To dissect a Mockingbird by David Keenan]] provides a graphical way to visualise the bird calls.
+
+* Combinatornithology
+
+Inspired by the book /To Mock a Mockingbird/ and the [[https://www.ma.imperial.ac.uk/~buzzard/xena/natural_number_game/][Natural Number Game of the Xena Project]], I created /Combinatornithology/ (a bad pun on combinatory logic and ornithology), an introduction to combinatory logic in the Lean theorem prover. The game is available [[https://github.com/0art0/combinatornithology][here]].

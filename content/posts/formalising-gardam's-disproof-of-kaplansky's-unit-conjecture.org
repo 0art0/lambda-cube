@@ -23,7 +23,7 @@ The only units in the group ring $K[G]$, where $K$ is a field and $G$ is a torsi
 
 In 2021, Giles Gardam finally settled the Unit conjecture in the negative. The proof was constructive, in the sense that Gardam provided an explicit field ($\mathbb{F}_{2$}, the finite field on two elements) and a torsion-free group (the *Promislow* or *Hantzsche-Wendt* group, denoted $P$), along with two non-trivial elements that are inverses of each other.
 
-** Formalising Gardam's disproof
+* Formalising Gardam's disproof
 
 A complete formal proof of Gardam's disproof would involve two broad components:
 - A proof that the group $P$ is torsion-free
@@ -35,4 +35,18 @@ Siddhartha Gadgil and I recently [[http://math.iisc.ac.in/~gadgil/unit_conjectur
 
 A detailed account of the formalisation is available on [[https://siddhartha-gadgil.github.io/automating-mathematics/posts/formalizing-gardam-disproof-kaplansky-conjecture/.][Siddhartha Gadgil's blog]]. This post will explore some of the design choices we made in our formalisation.
 
-*
+*** The group $P$
+
+Central to Gardam's counter-example is the group $P$, a virtually Abelian group with the presentation $\langle a, b \vert a^{-1}b^{2}a = b^{-2}, b^{-1}a^{2}b = a^{-2}\rangle$. Earlier work by Promislow shows that $P$ is an example of a torsion-free group that /does not/ satisfy the unique-product property, a purely combinatorial property of a group that is known to imply the unit conjecture for any group ring over that group.
+
+The two components of the proof mentioned above deal with different aspects of the group $P$:
+    - the first is a mathematical proof, which requires a detailed analysis of the /structure/ of $P$
+    - the second is a computation, which depends on /algorithmic properties/ of $P$, such as being able to efficiently decide when two elements are equal
+
+The group $P$ admits several descriptions - algebraic, topological, as well as combinatorial. Given our dual requirements of computing and proving, the description of $P$ that was most suitable was as a /Metabelian group/.
+
+**** TODO Generators and relations
+
+**** TODO Isometries of $\mathbb{Z}^{3}$
+
+**** TODO Metabelian group

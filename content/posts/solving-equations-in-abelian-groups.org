@@ -72,6 +72,8 @@ The =Lean4= programming language is ideal for this kind of mixing of programs, m
 
 The reduction of the general problem of proving an equation in all Abelian groups to the special case of the basis of the free Abelian group was certainly not specific to just Abelian groups, and it is likely that this kind of a reduction admits a more general formulation in the language of Category theory.
 
-The correct analogue of a free Abelian group seems to be [[https://en.wikipedia.org/wiki/Free_object][a free object in a category]] - the free objects in the category of groups are the free groups, the free objects in the category of rings are the polynomial rings, and so on. The notions of [[https://en.wikipedia.org/wiki/F-algebra][F-algebras]] and [[https://en.wikipedia.org/wiki/Monad_(category_theory)][monads]] also seems relevant here, but I do not understand the precise nature of the relations yet and will probably expand this section of the blog post later when I do.
+The correct analogue of a free Abelian group seems to be [[https://en.wikipedia.org/wiki/Free_object][a free object in a category]] - the free objects in the category of groups are the free groups, the free objects in the category of rings are the polynomial rings, and so on.
 
 Understanding the phenomenon in higher generality will likely reveal simpler ways to implement it in a system such as =Lean4=.
+
+** TODO Monads and algebras

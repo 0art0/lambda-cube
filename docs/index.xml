@@ -47,14 +47,5 @@ For example, group rings - the subject of this post - can be described in two ve
       <description>Introduction The Lean theorem prover is one of several that supports constructing proofs using tactics - commands that allow users to build up proofs step-by-step interactively at a high level of abstraction, usually interspersed with automation (for a demonstration of tactics and an introduction to Lean in general, consult the Natural Number Game). One of the appealing aspects of Lean, especially Lean4, is that there is a robust framework in place for users to write custom tactics within the language, making Lean its own metaprogramming language.</description>
     </item>
     
-    <item>
-      <title>Solving The Word Problem In Abelian Groups</title>
-      <link>https://0art0.github.io/lambda-cube/posts/solving-the-word-problem-in-abelian-groups/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      
-      <guid>https://0art0.github.io/lambda-cube/posts/solving-the-word-problem-in-abelian-groups/</guid>
-      <description></description>
-    </item>
-    
   </channel>
 </rss>
