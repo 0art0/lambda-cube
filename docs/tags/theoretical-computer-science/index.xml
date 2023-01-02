@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>theoretical-computer-science on λ-cube</title>
+    <link>https://0art0.github.io/lambda-cube/tags/theoretical-computer-science/</link>
+    <description>Recent content in theoretical-computer-science on λ-cube</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <lastBuildDate>Mon, 02 Jan 2023 10:36:27 +0530</lastBuildDate><atom:link href="https://0art0.github.io/lambda-cube/tags/theoretical-computer-science/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Automata as covering spaces of graphs</title>
+      <link>https://0art0.github.io/lambda-cube/posts/automata-as-covering-spaces/</link>
+      <pubDate>Mon, 02 Jan 2023 10:36:27 +0530</pubDate>
+      
+      <guid>https://0art0.github.io/lambda-cube/posts/automata-as-covering-spaces/</guid>
+      <description>This post describes a way of viewing deterministic automata from a combinatorial and topological lens as covering spaces of certain graphs. Roughly, every word with a given set of symbols can be thought of as a path on a certain graph, and the execution of the automaton can be interpreted as path lifting. A quick search of the internet does not bring up anything related, but it is quite likely that this connection has already been made before.</description>
+    </item>
+    
+  </channel>
+</rss>

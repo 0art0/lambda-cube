@@ -2,13 +2,31 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
-    <loc>https://0art0.github.io/lambda-cube/posts/</loc>
-    <lastmod>2022-11-02T11:24:29+05:30</lastmod>
+    <loc>https://0art0.github.io/lambda-cube/tags/algebraic-topology/</loc>
+    <lastmod>2023-01-02T10:36:27+05:30</lastmod>
   </url><url>
-    <loc>https://0art0.github.io/lambda-cube/posts/towers-of-hanoi/</loc>
-    <lastmod>2022-11-02T11:24:29+05:30</lastmod>
+    <loc>https://0art0.github.io/lambda-cube/tags/automata/</loc>
+    <lastmod>2023-01-02T10:36:27+05:30</lastmod>
+  </url><url>
+    <loc>https://0art0.github.io/lambda-cube/posts/automata-as-covering-spaces/</loc>
+    <lastmod>2023-01-02T10:36:27+05:30</lastmod>
+  </url><url>
+    <loc>https://0art0.github.io/lambda-cube/tags/maths/</loc>
+    <lastmod>2023-01-02T10:36:27+05:30</lastmod>
+  </url><url>
+    <loc>https://0art0.github.io/lambda-cube/posts/</loc>
+    <lastmod>2023-01-02T10:36:27+05:30</lastmod>
+  </url><url>
+    <loc>https://0art0.github.io/lambda-cube/tags/</loc>
+    <lastmod>2023-01-02T10:36:27+05:30</lastmod>
+  </url><url>
+    <loc>https://0art0.github.io/lambda-cube/tags/theoretical-computer-science/</loc>
+    <lastmod>2023-01-02T10:36:27+05:30</lastmod>
   </url><url>
     <loc>https://0art0.github.io/lambda-cube/</loc>
+    <lastmod>2023-01-02T10:36:27+05:30</lastmod>
+  </url><url>
+    <loc>https://0art0.github.io/lambda-cube/posts/towers-of-hanoi/</loc>
     <lastmod>2022-11-02T11:24:29+05:30</lastmod>
   </url><url>
     <loc>https://0art0.github.io/lambda-cube/posts/combinatornithology/</loc>
@@ -18,12 +36,6 @@
     <lastmod>2022-11-02T11:24:10+05:30</lastmod>
   </url><url>
     <loc>https://0art0.github.io/lambda-cube/tags/logic/</loc>
-    <lastmod>2022-11-02T11:24:10+05:30</lastmod>
-  </url><url>
-    <loc>https://0art0.github.io/lambda-cube/tags/maths/</loc>
-    <lastmod>2022-11-02T11:24:10+05:30</lastmod>
-  </url><url>
-    <loc>https://0art0.github.io/lambda-cube/tags/</loc>
     <lastmod>2022-11-02T11:24:10+05:30</lastmod>
   </url><url>
     <loc>https://0art0.github.io/lambda-cube/tags/category-theory/</loc>

@@ -5,7 +5,16 @@
     <link>https://0art0.github.io/lambda-cube/tags/maths/</link>
     <description>Recent content in maths on λ-cube</description>
     <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Wed, 02 Nov 2022 11:24:10 +0530</lastBuildDate><atom:link href="https://0art0.github.io/lambda-cube/tags/maths/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 02 Jan 2023 10:36:27 +0530</lastBuildDate><atom:link href="https://0art0.github.io/lambda-cube/tags/maths/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Automata as covering spaces of graphs</title>
+      <link>https://0art0.github.io/lambda-cube/posts/automata-as-covering-spaces/</link>
+      <pubDate>Mon, 02 Jan 2023 10:36:27 +0530</pubDate>
+      
+      <guid>https://0art0.github.io/lambda-cube/posts/automata-as-covering-spaces/</guid>
+      <description>This post describes a way of viewing deterministic automata from a combinatorial and topological lens as covering spaces of certain graphs. Roughly, every word with a given set of symbols can be thought of as a path on a certain graph, and the execution of the automaton can be interpreted as path lifting. A quick search of the internet does not bring up anything related, but it is quite likely that this connection has already been made before.</description>
+    </item>
+    
     <item>
       <title>Combinatornithology</title>
       <link>https://0art0.github.io/lambda-cube/posts/combinatornithology/</link>
