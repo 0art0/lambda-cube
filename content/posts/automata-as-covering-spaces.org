@@ -1,0 +1,43 @@
+#+TITLE: Automata as covering spaces of graphs
+#+AUTHOR: Anand
+#+DATE: 2023-01-02T10:36:27+05:30
+#+TAGS[]: maths automata algebraic-topology theoretical-computer-science
+#+MATH: true
+#+DRAFT: true
+
+This post describes a way of viewing deterministic automata from a combinatorial and topological lens as covering spaces of certain graphs. Roughly, every word with a given set of symbols can be thought of as a path on a certain graph, and the execution of the automaton can be interpreted as path lifting. A quick search of the internet does not bring up anything related, but it is quite likely that this connection has already been made before.
+
+* Monoids
+
+** Definition
+
+** Monoid homomorphisms
+
+** Free monoids
+
+* Graphs
+
+** Definition
+
+** Paths
+
+** Graph homomorphisms
+
+** Bouquet of circles
+
+* Covering spaces of graphs
+
+** Definition
+
+** Path lifting
+
+* Automata
+
+** Definition
+
+** Automata as labelled graphs
+
+
+* Automata as covering spaces of graphs
+
+* Conclusion
