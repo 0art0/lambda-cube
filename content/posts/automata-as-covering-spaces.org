@@ -5,39 +5,94 @@
 #+MATH: true
 #+DRAFT: true
 
-This post describes a way of viewing deterministic automata from a combinatorial and topological lens as covering spaces of certain graphs. Roughly, every word with a given set of symbols can be thought of as a path on a certain graph, and the execution of the automaton can be interpreted as path lifting. A quick search of the internet does not bring up anything related, but it is quite likely that this connection has already been made before.
+This post describes a way of viewing deterministic automata from a combinatorial and topological lens as covering spaces of certain graphs. Roughly, every word with a given set of symbols can be thought of as a path on a certain graph, and the execution of the automaton can be interpreted as path lifting. A quick search of the internet does not bring up anything related, but it is possible that this connection has already been made before. This article is written to be self-contained in the relevant concepts and terminology.
 
 * Monoids
 
 ** Definition
 
+A /monoid/ is an algebraic structure that can be regarded as a group without inverses. More concretely, a monoid is a set (or a type) equipped with an associative binary operation and a two-sided identity.
+
+Familiar examples of monoids are the natural numbers (including zero) under addition, and strings over a fixed alphabet, such as the lower case English alphabet, under concatenation.
+
 ** Monoid homomorphisms
+
+A /monoid homomorphism/ is a map between monoids that preserves the identity and composition.
 
 ** Free monoids
 
+The /free monoid/ on a set consists of all (finite) strings involving elements of the set; the empty string is the identity element and the associative monoid operation is concatenation.
+
+#+begin_comment
+The free monoid $\Sigma\asteraccent$ on a set $\Sigma$ can also be characterised by a universal property:
+/Any set-theoretic function from $\Sigma$ to a monoid $M$ extends uniquely to a *monoid homomorphism* from $\Sigma\asteraccent$ to $M$./
+#+end_comment
+
 * Graphs
+
+A /graph/ here is taken to mean a /directed multi-graph/, sometimes also known as a /quiver/.
 
 ** Definition
 
+A /graph/ or /quiver/ is defined to be a set of "vertices" (or "objects") where each ordered pair of vertices is equipped with a set of "edges" (or "arrows" or "morphisms").
+
 ** Paths
+
+A /path/ of a graph is defined to be a finite sequence of linked edges (edges such that the target of the first is the source of the next).
+
+** Loops
+
+A /loop/ is a path in which the first and last vertex coincide.
+
+** The fundamental monoid
+
+The set of loops based at a point on a graph can be endowed with the structure of a monoid. Loops at a point can be composed to get longer loops, and the trivial loop of length zero serves as the identity. This monoid is called the /fundamental monoid/ of the graph at the given vertex.
 
 ** Graph homomorphisms
 
+A /homomorphism between graphs/ is a pair of maps, one mapping vertices to vertices, and the other mapping edges between any given pair of vertices in the source to edges between the corresponding pair of vertices in the target.
+
 ** Bouquet of circles
+
+A /bouquet of circles/ is defined as a graph consisting of a single vertex. The circles in the bouquet comprise the edges from the single vertex to itself, and the fundamental monoid of such a graph at the only vertex is isomorphic to the free monoid on the set of circles.
+
+** Neighbourhoods
+
+The /neighbourhood/ of a vertex of a graph is defined to be the set of edges of the graph originating at that vertex.
 
 * Covering spaces of graphs
 
 ** Definition
 
+A /covering/ of a graph $G$ is a graph $C$ together with a surjective graph homomorphism $\phi : C \to G$ which is a local isomorphism - that is, the neighbourhood of any vertex in the covering graph is mapped isomorphically by $\phi$ to the neighbourhood of its image. Such a map is known as a /covering map/.
+
+It follows from the local isomorphism condition that for any vertex $v$ in the cover and edge $e : \phi(v) \to w$ in the base, there is a unique edge in the cover originating at $v$ and mapping to $e$ via $\phi$. This edge in the cover is called the /lift/ of $e$ at the vertex $v$.
+
 ** Path lifting
+
+Edge lifting can be performed iteratively to lift entire paths in the base originating at $\phi(v)$ uniquely to paths in the cover originating at $v$. A full description of path lifting is given by induction on the size of the path - the trivial path at $\phi(v)$ lifts uniquely to the trivial path at $v$, and for a path starting with an edge $e$ can be lifted by first lifting the edge $e$ and then lifting the remaining path from the next vertex.
 
 * Automata
 
 ** Definition
 
-** Automata as labelled graphs
+A deterministic automaton consists of
+- A finite set of states $Q$
+- An alphabet $\Sigma$
+- A transition function $\delta : Q \times \Sigma \to Q$
+- An initial state $q_{0} \in Q$
+- A set of accept states $F \subseteq Q$
 
+Let $w$ be a string over the alphabet $\Sigma$. If $w$ starts with the letter $a$, the automaton moves from its initial state $q_{0}$ to the state $\delta(q_{0}, a)$ determined by the transition function. The rest of the string is then processed in a similar way, but now with the updated state. The automaton halts when it has reached the end of the string. If the state at the time of halting is among the accept states, then $w$ is considered to be /recognised/ by the automaton. Otherwise, the string $w$ is considered /rejected/ by the automaton.
+
+** State diagrams
+
+Every automaton can be depicted visually by a /state diagram/, which is a labelled directed graph whose vertices are the states and whose edges   represent transitions between states (see the image below).
+
+[[img:https://upload.wikimedia.org/wikipedia/commons/thumb/9/9e/Turnstile_state_machine_colored.svg/1185px-Turnstile_state_machine_colored.svg.png][The state diagram of a two state automaton]]
 
 * Automata as covering spaces of graphs
+
+
 
 * Conclusion
