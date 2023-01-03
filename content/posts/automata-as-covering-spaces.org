@@ -5,7 +5,7 @@
 #+MATH: true
 #+DRAFT: false
 
-This post describes a way of viewing deterministic automata from a combinatorial and topological lens as covering spaces of certain graphs. Roughly, every word with a given set of symbols can be thought of as a path on a certain graph, and the execution of the automaton can be interpreted as path lifting. A quick search of the internet does not bring up anything related, but it is possible that this connection has already been made before. This article is written to be self-contained in the relevant concepts and terminology.
+This post describes a way of viewing deterministic automata from a combinatorial and topological lens, as covering spaces of certain graphs. Roughly, every word over a given set of symbols can be thought of as a path on a certain graph, and the execution of the automaton can be interpreted as path lifting. A quick search of the internet does not bring up anything related, but it is possible that this connection has already been made before. This article is written to be self-contained in the relevant concepts and terminology.
 
 * Monoids
 
@@ -93,12 +93,12 @@ Every automaton can be depicted visually by a /state diagram/, which is a labell
 
 * Automata as covering spaces of graphs
 
-Every automaton with alphabet $\Sigma$ can be considered as a covering space of the bouquet whose set of circles is $\Sigma$. The graphs corresponding to the automaton is its state diagram. The covering map sends all vertices of the automaton to the single vertex of the bouquet of circles, and an edge representing a transition due to a letter $a$ to the circle in the bouquet representing $a$. The local isomorphism condition is satisfied since there is exactly one transition out of any state for each letter $a$ in the alphabet $\Sigma$.
+Every automaton with alphabet $\Sigma$ can be considered as a covering space of the bouquet whose set of circles is $\Sigma$. The graphs corresponding to the automaton is its state diagram. The covering map sends all vertices of the automaton to the single vertex of the bouquet of circles, and an edge representing a transition due to a letter $a$ to the circle in the bouquet representing $a$. The local isomorphism condition is satisfied since there is exactly one transition out of any given state for each letter $a$ in the alphabet $\Sigma$.
 
 A path in the bouquet of circles represents a unique word over the alphabet $\Sigma$. The automaton executes a word by starting at the initial state and updating the state according to the next letter in the word, precisely the way in which path lifting is performed starting at the vertex representing the initial state. The word is accepted by the automaton if and only if the other endpoint of the lift is contained in the set of vertices representing accept states.
 
 * Conclusion
 
-The interpretation described above connects two mathematical objects from areas that appear to have very little to do with each other - automata from theoretical computer science and covering spaces from algebraic topology. Generalisations of this connection are suggested by both the topological as well as computational sides. From the topological side, it would be interesting to understand this connection in terms of arbitrary CW complexes, not just graphs, with higher lifting (such as homotopy lifting) in addition to path lifting. From the side of theoretical computer science, finding similar topological interpretations of other models of computation, such as push-down automata or Turing machines, is an interesting (and possibly open) question.
+The interpretation described above connects two mathematical objects from areas that appear to have very little to do with each other - automata from theoretical computer science and covering spaces from algebraic topology. Generalisations of this connection are suggested by both the topological as well as computational sides. From the topological side, it would be interesting to understand this connection in terms of arbitrary CW complexes, not just graphs, with higher lifting (such as homotopy lifting) in addition to path lifting. From the side of theoretical computer science, finding similar topological interpretations of other models of computation - such as push-down automata or Turing machines - is an interesting (and possibly open) question.
 
 Further details about covering spaces of graphs and automata will appear in subsequent blog posts on /Topological methods in group theory/ and /the Myhill-Nerode theorem/ respectively.
