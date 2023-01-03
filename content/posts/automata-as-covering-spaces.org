@@ -3,7 +3,7 @@
 #+DATE: 2023-01-02T10:36:27+05:30
 #+TAGS[]: maths automata algebraic-topology theoretical-computer-science
 #+MATH: true
-#+DRAFT: true
+#+DRAFT: false
 
 This post describes a way of viewing deterministic automata from a combinatorial and topological lens as covering spaces of certain graphs. Roughly, every word with a given set of symbols can be thought of as a path on a certain graph, and the execution of the automaton can be interpreted as path lifting. A quick search of the internet does not bring up anything related, but it is possible that this connection has already been made before. This article is written to be self-contained in the relevant concepts and terminology.
 
