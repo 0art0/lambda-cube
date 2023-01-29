@@ -1,0 +1,33 @@
+#+TITLE: Seemingly Impossible Lean Programs
+#+AUTHOR: Anand
+#+DATE: 2023-01-29T21:53:54+05:30
+#+TAGS[]: constructive-mathematics lean4 topology
+#+MATH: true
+#+DRAFT: true
+
+* Introduction - Infinite search in finite time
+
+It should come as no surprise that an exhaustive search over a finite set can be performed algorithmically by enumeration. On the other hand, it is impossible to perform such an exhaustive enumeration over the natural numbers or the integers, as these sets are infinite. However, somewhat paradoxically, there are infinite sets that can be exhaustively searched in finite time. More precisely, there is at least one infinite set $X$ with the property that for any given Boolean-valued function $p$ on $X$, it is possible to algorithmically verify within finite time whether $p$ holds for all elements of $X$ or to produce a counter-example if one exists. Moreover, there is a characterisation of the sets that can be exhaustively searched algorithmically in finite time as those that are topologically compact (under the so-called *intrinsic topology*). Both the title and the contents of this post are based on [[https://math.andrej.com/2007/09/28/seemingly-impossible-functional-programs/][this post]] by [[https://www.cs.bham.ac.uk/~mhe/][Martín Hötzel Escardó]] on the blog [[https://math.andrej.com/][=Mathematics and Computation=]]. The accompanying code is written in =Lean4=, unlike the original post which uses =Haskell=.
+
+* The conatural numbers $$\mathbb{N}_{\infty}$$
+
+The primary example of an infinite exhaustively searchable type in this post will be the set of /conatural numbers/, defined as the set of decreasing infinite binary sequences. There is an embedding of the natural numbers into the conatural numbers, taking each natural number $n$ to the sequence with $n$ ones in the beginning followed by infinitely many zeros. The set also contains a special point - an infinite sequence of ones - which does not corresponding to any natural number.
+
+#+begin_src lean
+def InfNat := {f : ℕ → Bool // ∀ n, f n.succ → f n}
+
+notation "ℕ∞" => InfNat
+
+def zero : ℕ∞ := ⟨fun _ => false, fun _ => id⟩
+
+def succ : ℕ∞ → ℕ∞
+  | ⟨f, inc⟩ =>
+    ⟨fun
+      | .zero => true
+      | .succ a => f a,
+    fun
+      | .zero => fun _ => rfl
+      | .succ _ => inc _⟩
+
+def inf : ℕ∞ := ⟨fun _ => true, fun _ => id⟩
+#+end_src
