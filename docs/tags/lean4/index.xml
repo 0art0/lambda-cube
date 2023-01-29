@@ -5,7 +5,16 @@
     <link>https://0art0.github.io/lambda-cube/tags/lean4/</link>
     <description>Recent content in lean4 on λ-cube</description>
     <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Sun, 18 Sep 2022 16:30:00 +0530</lastBuildDate><atom:link href="https://0art0.github.io/lambda-cube/tags/lean4/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 29 Jan 2023 21:53:54 +0530</lastBuildDate><atom:link href="https://0art0.github.io/lambda-cube/tags/lean4/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Seemingly Impossible Lean Programs</title>
+      <link>https://0art0.github.io/lambda-cube/posts/seemingly-impossible-lean-programs/</link>
+      <pubDate>Sun, 29 Jan 2023 21:53:54 +0530</pubDate>
+      
+      <guid>https://0art0.github.io/lambda-cube/posts/seemingly-impossible-lean-programs/</guid>
+      <description>Introduction - Infinite search in finite time It should come as no surprise that an exhaustive search over a finite set can be performed algorithmically by enumeration. On the other hand, it is impossible to perform such an exhaustive enumeration over the natural numbers or the integers, as these sets are infinite. However, somewhat paradoxically, there are infinite sets that can be exhaustively searched in finite time. More precisely, there is at least one infinite set $X$ with the property that for any given Boolean-valued function $p$ on $X$, it is possible to algorithmically verify within finite time whether $p$ holds for all elements of $X$ or to produce a counter-example if one exists.</description>
+    </item>
+    
     <item>
       <title>Solving equations in Abelian groups</title>
       <link>https://0art0.github.io/lambda-cube/posts/solving-equations-in-abelian-groups/</link>

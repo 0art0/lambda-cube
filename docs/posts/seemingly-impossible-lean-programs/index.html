@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="en" dir="auto">
+
+<head><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="index, follow">
+<title>Seemingly Impossible Lean Programs | λ-cube</title>
+<meta name="keywords" content="constructive-mathematics, lean4, topology">
+<meta name="description" content="Introduction - Infinite search in finite time It should come as no surprise that an exhaustive search over a finite set can be performed algorithmically by enumeration. On the other hand, it is impossible to perform such an exhaustive enumeration over the natural numbers or the integers, as these sets are infinite. However, somewhat paradoxically, there are infinite sets that can be exhaustively searched in finite time. More precisely, there is at least one infinite set $X$ with the property that for any given Boolean-valued function $p$ on $X$, it is possible to algorithmically verify within finite time whether $p$ holds for all elements of $X$ or to produce a counter-example if one exists.">
+<meta name="author" content="Anand">
+<link rel="canonical" href="https://0art0.github.io/lambda-cube/posts/seemingly-impossible-lean-programs/">
+<link crossorigin="anonymous" href="/lambda-cube/assets/css/stylesheet.bc1149f4a72aa4858d3a9f71462f75e5884ffe8073ea9d6d5761d5663d651e20.css" integrity="sha256-vBFJ9KcqpIWNOp9xRi915YhP/oBz6p1tV2HVZj1lHiA=" rel="preload stylesheet" as="style">
+<script defer crossorigin="anonymous" src="/lambda-cube/assets/js/highlight.f413e19d0714851f6474e7ee9632408e58ac146fbdbe62747134bea2fa3415e0.js" integrity="sha256-9BPhnQcUhR9kdOfuljJAjlisFG&#43;9vmJ0cTS&#43;ovo0FeA="
+    onload="hljs.initHighlightingOnLoad();"></script>
+<link rel="icon" href="https://0art0.github.io/lambda-cube/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="https://0art0.github.io/lambda-cube/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="https://0art0.github.io/lambda-cube/favicon-32x32.png">
+<link rel="apple-touch-icon" href="https://0art0.github.io/lambda-cube/apple-touch-icon.png">
+<link rel="mask-icon" href="https://0art0.github.io/lambda-cube/safari-pinned-tab.svg">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<noscript>
+    <style>
+        #theme-toggle,
+        .top-link {
+            display: none;
+        }
+
+    </style>
+    <style>
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --theme: rgb(29, 30, 32);
+                --entry: rgb(46, 46, 51);
+                --primary: rgb(218, 218, 219);
+                --secondary: rgb(155, 156, 157);
+                --tertiary: rgb(65, 66, 68);
+                --content: rgb(196, 196, 197);
+                --hljs-bg: rgb(46, 46, 51);
+                --code-bg: rgb(55, 56, 62);
+                --border: rgb(51, 51, 51);
+            }
+
+            .list {
+                background: var(--theme);
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-track {
+                background: 0 0;
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-thumb {
+                border-color: var(--theme);
+            }
+        }
+
+    </style>
+</noscript>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.2/dist/katex.min.css" integrity="sha384-bYdxxUwYipFNohQlHt0bjN/LCpueqWz13HufFEV1SUatKs1cm4L6fFgCi1jT643X" crossorigin="anonymous">
+
+
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.2/dist/katex.min.js" integrity="sha384-Qsn9KnoKISj6dI8g7p1HBlNpVx0I8p1SvlwOldgi3IorMle61nQy4zEahWYtljaz" crossorigin="anonymous"></script>
+
+
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.2/dist/contrib/auto-render.min.js" integrity="sha384-+VBxd3r6XgURycqtZ117nYw44OOcIax56Z4dCRWbxyPt0Koah1uHoK0o4+/RRE05" crossorigin="anonymous"
+        onload="renderMathInElement(document.body);"></script>
+
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+    renderMathInElement(document.body, {
+        delimiters: [
+            {left: "$$", right: "$$", display: true},
+            {left: "$", right: "$", display: false}
+        ]
+    });
+});
+</script>
+
+
+<meta property="og:title" content="Seemingly Impossible Lean Programs" />
+<meta property="og:description" content="Introduction - Infinite search in finite time It should come as no surprise that an exhaustive search over a finite set can be performed algorithmically by enumeration. On the other hand, it is impossible to perform such an exhaustive enumeration over the natural numbers or the integers, as these sets are infinite. However, somewhat paradoxically, there are infinite sets that can be exhaustively searched in finite time. More precisely, there is at least one infinite set $X$ with the property that for any given Boolean-valued function $p$ on $X$, it is possible to algorithmically verify within finite time whether $p$ holds for all elements of $X$ or to produce a counter-example if one exists." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://0art0.github.io/lambda-cube/posts/seemingly-impossible-lean-programs/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2023-01-29T21:53:54+05:30" />
+<meta property="article:modified_time" content="2023-01-29T21:53:54+05:30" />
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Seemingly Impossible Lean Programs"/>
+<meta name="twitter:description" content="Introduction - Infinite search in finite time It should come as no surprise that an exhaustive search over a finite set can be performed algorithmically by enumeration. On the other hand, it is impossible to perform such an exhaustive enumeration over the natural numbers or the integers, as these sets are infinite. However, somewhat paradoxically, there are infinite sets that can be exhaustively searched in finite time. More precisely, there is at least one infinite set $X$ with the property that for any given Boolean-valued function $p$ on $X$, it is possible to algorithmically verify within finite time whether $p$ holds for all elements of $X$ or to produce a counter-example if one exists."/>
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [, 
+    {
+      "@type": "ListItem",
+      "position":  2 ,
+      "name": "Posts",
+      "item": "https://0art0.github.io/lambda-cube/posts/"
+    }, 
+    {
+      "@type": "ListItem",
+      "position":  3 ,
+      "name": "Seemingly Impossible Lean Programs",
+      "item": "https://0art0.github.io/lambda-cube/posts/seemingly-impossible-lean-programs/"
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "Seemingly Impossible Lean Programs",
+  "name": "Seemingly Impossible Lean Programs",
+  "description": "Introduction - Infinite search in finite time It should come as no surprise that an exhaustive search over a finite set can be performed algorithmically by enumeration. On the other hand, it is impossible to perform such an exhaustive enumeration over the natural numbers or the integers, as these sets are infinite. However, somewhat paradoxically, there are infinite sets that can be exhaustively searched in finite time. More precisely, there is at least one infinite set $X$ with the property that for any given Boolean-valued function $p$ on $X$, it is possible to algorithmically verify within finite time whether $p$ holds for all elements of $X$ or to produce a counter-example if one exists.",
+  "keywords": [
+    "constructive-mathematics", "lean4", "topology"
+  ],
+  "articleBody": " Introduction - Infinite search in finite time It should come as no surprise that an exhaustive search over a finite set can be performed algorithmically by enumeration. On the other hand, it is impossible to perform such an exhaustive enumeration over the natural numbers or the integers, as these sets are infinite. However, somewhat paradoxically, there are infinite sets that can be exhaustively searched in finite time. More precisely, there is at least one infinite set $X$ with the property that for any given Boolean-valued function $p$ on $X$, it is possible to algorithmically verify within finite time whether $p$ holds for all elements of $X$ or to produce a counter-example if one exists. Moreover, there is a characterisation of the sets that can be exhaustively searched algorithmically in finite time as those that are topologically compact (under the so-called intrinsic topology). Both the title and the contents of this post are based on this post by Martín Hötzel Escardó on the blog Mathematics and Computation. The accompanying code is written in Lean4, unlike the original post which uses Haskell.\nThe conatural numbers $\\mathbb{N}_{\\infty}$ The primary example of an infinite exhaustively searchable type in this post will be the set of conatural numbers, defined as the set of decreasing infinite binary sequences. There is an embedding of the natural numbers into the conatural numbers, taking each natural number $n$ to the sequence with $n$ ones in the beginning followed by infinitely many zeros. The set also contains a special point - an infinite sequence of ones - which does not corresponding to any natural number.\n/-- The conatural numbers - the set of infinite decreasing binary sequences. -/ def InfNat := {f : ℕ → Bool // ∀ n, f n.succ → f n} -- a conventient notation notation \"ℕ∞\" =\u003e InfNat /-- The image of `0`, which corresponds to the constant sequence with the value `false`. -/ def zero : ℕ∞ := ⟨fun n =\u003e false, fun _ =\u003e id⟩ /-- The successor of a conatural number, defined as the sequence obtained by appending `true` at the front. -/ def succ : ℕ∞ → ℕ∞ | ⟨f, inc⟩ =\u003e ⟨fun | .zero =\u003e true | .succ a =\u003e f a, fun | .zero =\u003e fun _ =\u003e rfl | .succ _ =\u003e inc _⟩ /-- The special point at infinity, which is defined as the constant sequence with the value `true` -/ def inf : ℕ∞ := ⟨fun n =\u003e true, fun _ =\u003e id⟩ ",
+  "wordCount" : "416",
+  "inLanguage": "en",
+  "datePublished": "2023-01-29T21:53:54+05:30",
+  "dateModified": "2023-01-29T21:53:54+05:30",
+  "author":{
+    "@type": "Person",
+    "name": "Anand"
+  },
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://0art0.github.io/lambda-cube/posts/seemingly-impossible-lean-programs/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "λ-cube",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://0art0.github.io/lambda-cube/favicon.ico"
+    }
+  }
+}
+</script>
+</head>
+
+<body class="" id="top">
+<script>
+    if (localStorage.getItem("pref-theme") === "dark") {
+        document.body.classList.add('dark');
+    } else if (localStorage.getItem("pref-theme") === "light") {
+        document.body.classList.remove('dark')
+    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.body.classList.add('dark');
+    }
+
+</script>
+
+<header class="header">
+    <nav class="nav">
+        <div class="logo">
+            <a href="https://0art0.github.io/lambda-cube" accesskey="h" title="λ-cube (Alt + H)">λ-cube</a>
+            <div class="logo-switches">
+                <button id="theme-toggle" accesskey="t" title="(Alt + T)">
+                    <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <ul id="menu">
+        </ul>
+    </nav>
+</header>
+<main class="main">
+
+<article class="post-single">
+  <header class="post-header">
+    <div class="breadcrumbs"><a href="https://0art0.github.io/lambda-cube">Home</a>&nbsp;»&nbsp;<a href="https://0art0.github.io/lambda-cube/posts/">Posts</a></div>
+    <h1 class="post-title">
+      Seemingly Impossible Lean Programs<sup><span class="entry-isdraft">&nbsp;&nbsp;[draft]</span></sup>
+    </h1>
+    <div class="post-meta"><span title='2023-01-29 21:53:54 +0530 IST'>January 29, 2023</span>&nbsp;·&nbsp;2 min&nbsp;·&nbsp;Anand&nbsp;|&nbsp;<a href="https://github.com/0art0/lambda-cube/tree/main/content/posts/seemingly-impossible-lean-programs.org" rel="noopener noreferrer" target="_blank">View source</a>
+
+</div>
+  </header> 
+
+  <div class="post-content">
+<div id="outline-container-headline-1" class="outline-2">
+<h2 id="headline-1">
+Introduction - Infinite search in finite time
+</h2>
+<div id="outline-text-headline-1" class="outline-text-2">
+<p>
+It should come as no surprise that an exhaustive search over a finite set can be performed algorithmically by enumeration. On the other hand, it is impossible to perform such an exhaustive enumeration over the natural numbers or the integers, as these sets are infinite. However, somewhat paradoxically, there are infinite sets that can be exhaustively searched in finite time. More precisely, there is at least one infinite set $X$ with the property that for any given Boolean-valued function $p$ on $X$, it is possible to algorithmically verify within finite time whether $p$ holds for all elements of $X$ or to produce a counter-example if one exists. Moreover, there is a characterisation of the sets that can be exhaustively searched algorithmically in finite time as those that are topologically compact (under the so-called <strong>intrinsic topology</strong>). Both the title and the contents of this post are based on <a href="https://math.andrej.com/2007/09/28/seemingly-impossible-functional-programs/">this post</a> by <a href="https://www.cs.bham.ac.uk/~mhe/">Martín Hötzel Escardó</a> on the blog <a href="https://math.andrej.com/"><code class="verbatim">Mathematics and Computation</code></a>. The accompanying code is written in <code class="verbatim">Lean4</code>, unlike the original post which uses <code class="verbatim">Haskell</code>.</p>
+</div>
+</div>
+<div id="outline-container-headline-2" class="outline-2">
+<h2 id="headline-2">
+The conatural numbers $\mathbb{N}_{\infty}$
+</h2>
+<div id="outline-text-headline-2" class="outline-text-2">
+<p>
+The primary example of an infinite exhaustively searchable type in this post will be the set of <em>conatural numbers</em>, defined as the set of decreasing infinite binary sequences. There is an embedding of the natural numbers into the conatural numbers, taking each natural number $n$ to the sequence with $n$ ones in the beginning followed by infinitely many zeros. The set also contains a special point - an infinite sequence of ones - which does not corresponding to any natural number.</p>
+<div class="src src-lean">
+<pre tabindex="0"><code class="language-lean" data-lang="lean">/-- The conatural numbers -
+    the set of infinite decreasing binary sequences. -/
+def InfNat := {f : ℕ → Bool // ∀ n, f n.succ → f n}
+-- a conventient notation
+notation &#34;ℕ∞&#34; =&gt; InfNat
+
+/-- The image of `0`, which corresponds to
+    the constant sequence with the value `false`. -/
+def zero : ℕ∞ := ⟨fun n =&gt; false, fun _ =&gt; id⟩
+
+/-- The successor of a conatural number, defined as
+    the sequence obtained by appending `true` at the front. -/
+def succ : ℕ∞ → ℕ∞
+  | ⟨f, inc⟩ =&gt;
+    ⟨fun
+      | .zero =&gt; true
+      | .succ a =&gt; f a,
+    fun
+      | .zero =&gt; fun _ =&gt; rfl
+      | .succ _ =&gt; inc _⟩
+
+/-- The special point at infinity, which is defined as
+    the constant sequence with the value `true` -/
+def inf : ℕ∞ := ⟨fun n =&gt; true, fun _ =&gt; id⟩</code></pre>
+</div>
+</div>
+</div>
+
+
+  </div>
+
+  <footer class="post-footer">
+    <ul class="post-tags">
+      <li><a href="https://0art0.github.io/lambda-cube/tags/constructive-mathematics/">constructive-mathematics</a></li>
+      <li><a href="https://0art0.github.io/lambda-cube/tags/lean4/">lean4</a></li>
+      <li><a href="https://0art0.github.io/lambda-cube/tags/topology/">topology</a></li>
+    </ul>
+<nav class="paginav">
+  <a class="next" href="https://0art0.github.io/lambda-cube/posts/automata-as-covering-spaces/">
+    <span class="title">Next »</span>
+    <br>
+    <span>Automata as covering spaces of graphs</span>
+  </a>
+</nav>
+
+  </footer>
+</article>
+    </main>
+    
+<footer class="footer">
+    <span>&copy; 2023 <a href="https://0art0.github.io/lambda-cube">λ-cube</a></span>
+    <span>
+        Powered by
+        <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &
+        <a href="https://github.com/adityatelange/hugo-PaperMod/" rel="noopener" target="_blank">PaperMod</a>
+    </span>
+</footer>
+<a href="#top" aria-label="go to top" title="Go to Top (Alt + G)" class="top-link" id="top-link" accesskey="g">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentColor">
+        <path d="M12 6H0l6-6z" />
+    </svg>
+</a>
+
+<script>
+    let menu = document.getElementById('menu')
+    if (menu) {
+        menu.scrollLeft = localStorage.getItem("menu-scroll-position");
+        menu.onscroll = function () {
+            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+        }
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            var id = this.getAttribute("href").substr(1);
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
+                    behavior: "smooth"
+                });
+            } else {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
+            }
+            if (id === "top") {
+                history.replaceState(null, null, " ");
+            } else {
+                history.pushState(null, null, `#${id}`);
+            }
+        });
+    });
+
+</script>
+<script>
+    var mybutton = document.getElementById("top-link");
+    window.onscroll = function () {
+        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
+            mybutton.style.visibility = "visible";
+            mybutton.style.opacity = "1";
+        } else {
+            mybutton.style.visibility = "hidden";
+            mybutton.style.opacity = "0";
+        }
+    };
+
+</script>
+<script>
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+        if (document.body.className.includes("dark")) {
+            document.body.classList.remove('dark');
+            localStorage.setItem("pref-theme", 'light');
+        } else {
+            document.body.classList.add('dark');
+            localStorage.setItem("pref-theme", 'dark');
+        }
+    })
+
+</script>
+<script>
+    document.querySelectorAll('pre > code').forEach((codeblock) => {
+        const container = codeblock.parentNode.parentNode;
+
+        const copybutton = document.createElement('button');
+        copybutton.classList.add('copy-code');
+        copybutton.innerHTML = 'copy';
+
+        function copyingDone() {
+            copybutton.innerHTML = 'copied!';
+            setTimeout(() => {
+                copybutton.innerHTML = 'copy';
+            }, 2000);
+        }
+
+        copybutton.addEventListener('click', (cb) => {
+            if ('clipboard' in navigator) {
+                navigator.clipboard.writeText(codeblock.textContent);
+                copyingDone();
+                return;
+            }
+
+            const range = document.createRange();
+            range.selectNodeContents(codeblock);
+            const selection = window.getSelection();
+            selection.removeAllRanges();
+            selection.addRange(range);
+            try {
+                document.execCommand('copy');
+                copyingDone();
+            } catch (e) { };
+            selection.removeRange(range);
+        });
+
+        if (container.classList.contains("highlight")) {
+            container.appendChild(copybutton);
+        } else if (container.parentNode.firstChild == container) {
+            
+        } else if (codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.nodeName == "TABLE") {
+            
+            codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.appendChild(copybutton);
+        } else {
+            
+            codeblock.parentNode.appendChild(copybutton);
+        }
+    });
+</script>
+</body>
+
+</html>
