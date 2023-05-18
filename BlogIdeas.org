@@ -1,0 +1,86 @@
+#+TITLE: Blog Ideas
+#+AUTHOR: Anand
+
+* An automated proof of the Yoneda lemma
+
+* TODO Towers of Hanoi
+
+* DONE Combinatornithology
+
+* Initial object in the category of elements
+
+* Grothendieck construction
+
+* An introduction to inductive types
+
+* A simple example of the Curry-Howard correspondence
+
+* Simplicial sets
+
+* Update =findProof=
+
+* Eckmann-Hilton argument
+
+* The cocycle construction and group cohomology
+
+* Lawvere fixed-point theorem
+
+* Ends of graphs as sections of functors
+
+* Knuth-Bendix algorithm for commutative monoids
+
+* Model theory, universal algebra and the `abel` tactic
+
+* Lenses and optics
+
+* Transformers and Large Language Models
+
+* Philosophy of LLMs
+
+* Homotopy Type Theory
+
+* Searchable types
+
+* Filters (and ends)
+
+* Combinatorial Algebraic Topology
+
+* Implementation of Hyperbolica game
+An exploration of Hyperbolic geometry in Lean
+
+* Cellular Automaton using Comonads
+Greenberg-Hastings
+Game of Life
+Rock-Paper-Scissors
+Cyclic
+
+* A dataset of obfuscated Lean theorems
+To test whether humans can prove "obvious" theorems even when an interpretation is lacking
+
+* Dual numbers in Lean4
+
+* Special relativity
+
+* Mazur-Eilenberg Swindle
+
+* LLMs for quizzes
+
+* Topological methods in group theory
+
+* FRACTRAN
+
+* Dual numbers
+
+* Myhill-Nerode theorem
+
+* Types as topological spaces
+
+* Probability theory in terms of random variables
+
+* TODO Recognising interesting mathematical statements
+
+* Maxima of functions on the unit cube
+
+* Free functors and monads
+
+* Algebraic topology using categories
